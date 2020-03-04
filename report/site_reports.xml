@@ -1,0 +1,33 @@
+<odoo>
+  <data>
+
+    <template id="site_report">
+      <t t-call="report.offer_letter">
+          <t t-foreach="docs" t-as="o">
+                  <div class="page">
+                  <u><b><h3 style="text-align: center;">SALES REPORT FOR <t t-esc="o.name" /></h3></b></u>
+
+                  <p>Sales Report for <t t-esc="o.name" /> on <spam  t-esc="datetime.date.today().strftime('%B %d, %Y')" /></p>
+                  <br />
+
+                  <div style="float: right">
+                    <h4>Houses sold by type</h4>
+                    <t t-foreach="house_count" t-as="houses">
+                      <t t-set="house" t-value="houses[0]"/>
+                      <t t-set="count" t-value="houses[1]"/>
+                      <p><span t-esc="house" />: <span t-esc="count" /> houses sold</p>
+                    </t>
+                  </div>
+
+
+                  <p><b>Total Number of houses sold:</b> <t t-esc="number_of_houses_sold" /></p>
+                  <p><b>Total Amount sold:</b>  N<t t-esc="'{0:,}'.format(int(total_allocated))" /></p>
+                  <p><b>Average amount:</b> N<t t-esc="'{0:,}'.format(int(average_amount))" /></p>
+
+                  </div>
+          </t>
+      </t>
+</template>
+
+  </data>
+</odoo>

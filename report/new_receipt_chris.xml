@@ -1,0 +1,146 @@
+<odoo>
+    <data>
+
+
+
+    <template id="account_receipt_invoice">
+        <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <!--<t t-call="report.external_layout">-->
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' %res_company.logo"/>
+                   <span t-esc="res_company.name"/>
+                   <span t-esc="res_company.street"/>, <span t-esc="res_company.street2"/>, <span t-esc="res_company.city"/>,
+                 <span t-esc="res_company.state_id.name"/>, <p><span t-esc="res_company.country_id.name"/></p>
+
+                </div>
+                 <div class="col-xs-offset-2 text-right">
+                    <!--<p>RC 1445828</p>-->
+                </div>
+                <div class="col-xs-offset-2 text-right">
+                    <hr/>
+                </div>
+            </div>
+        </div><br/>
+                <div class="page">
+                 <div class="col-md-8">
+                     <p style="float: left;"><h3><span t-esc="doc.number"/></h3></p>
+                        <p style="float: right;"><span t-esc="doc.date_invoice"/></p>
+                <br/>
+                <div class="row" style="font-family:Garamond;font-size:16px;">
+                <p><span t-field="doc.partner_id"/>,</p>
+                <p><span t-field="doc.partner_id.street"/>,<span t-field="doc.partner_id.street2"/>,</p>
+                <p><span t-field="doc.partner_id.city"/>,<span t-field="doc.partner_id.state_id.name"/>,<span t-field="doc.partner_id.zip"/>,</p>
+                 <p><span t-field="doc.partner_id.country_id.name"/>.</p>
+                <br/>
+                 <p>Dear Sir/Ma,</p>
+                </div>
+
+                    <br/>
+                    <div class="col-md-8">
+                        <p style="line-height:2.0;"><center><u><h3><b>PAYMENT RECEIPT</b></h3></u></center></p>
+                        <p>We acknowledge your payment(s) into our account(s) in respect to House <span t-field="doc.invoice_line_ids.product_id.categ_id.project_site.name"/> received at Brains and Hammers Estate.
+                             <!--<t t-esc="i.product_id.name"/>,-->
+
+                        </p>
+                    </div>
+                     <br/>
+    <style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+
+<table>
+  <tr>
+    <th>ITEM</th>
+    <th>LODGMENT DATE</th>
+    <th>AMOUNT</th>
+
+  </tr>
+
+  <tr>
+    <td>SALE PRICE</td>
+    <td>-------</td>
+    <td><span t-esc="doc.amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></td>
+  </tr>
+
+
+
+  <tr t-foreach="doc.payment_ids" t-as="line">
+     <ol>
+       <td><li></li>ADDITIONAL PAYMENTS</td>
+        <td>
+            <span t-field="line.payment_date"/>
+        </td>
+
+         <td>
+            <span t-field="line.amount" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+        </td>
+      </ol>
+    <!--<td><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/></td>-->
+    <!--<td><t t-if="doc.call_jason().get('content')[0].get('amount')">-->
+                                <!--<span  t-esc ="doc.call_jason().get('content')[0].get('amount')" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></t></td>-->
+  </tr>
+  <tr>
+      <td><b>TOTAL PAYMENT</b></td>
+    <td>-------</td>
+        <td><span t-field="doc.amount_total"  t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></td>
+  </tr>
+
+  <tr>
+      <td><b>OUTSTANDING BALANCE</b></td>
+    <td>------</td>
+    <td><span t-field="doc.residual" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></td>
+  </tr>
+</table>
+
+<br/>
+     <p>Thanks. </p>
+
+
+    <br/>
+    <br/>
+     <br/>
+    <br/>
+    <!--<img t-if="res_company.allocation_manager" t-att-src="'data:image/png;base64,%s' %res_company.allocation_manager"/>-->
+<tr><td style="padding-top:4%;">
+<div class="row">
+          <div class="col-xs-3">
+            <img src="https://imgur.com/FYvOMgW.jpg" style="max-height: 200px;" />
+             <p>Manager's Signature</p>
+          </div>
+          <div class="col-xs-offset-2 text-right">
+
+              <p>Customer's Signature</p>
+          </div>
+
+        </div>
+
+  </td></tr>
+
+
+
+                 </div>
+                </div>
+            </t>
+        </t>
+        <!--</t>-->
+    </template>
+
+</data>
+</odoo>

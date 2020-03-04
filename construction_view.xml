@@ -1,0 +1,1455 @@
+<odoo>
+  <data>
+
+        <record model="ir.ui.view" id="project_addonxx1" >
+            <field name="name">project.project</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.project_project_view_form_simplified" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+                           <field name="master_project" invisible="0"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+
+
+<record model="ir.ui.view" id="account_payment_addonxx1" >
+            <field name="name">account.payment</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='communication']" position="after">
+                           <field name="narration" invisible="0" placeholder="Payment type and optional note about this payment"/>
+                </xpath>
+
+
+
+
+            </field>
+       </record>
+
+
+
+        <record model="ir.ui.view" id="product_categ_addons" >
+            <field name="name">product.category</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+
+                	<div>
+                           <field name="project_site" string ="Project Site" required = "0" invisible="0"/>
+
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="project_name" string ="Project name" required = "0" invisible="0"/>
+                 </xpath>
+            </field>
+        </record>
+
+          <!--<record model="ir.ui.view" id="partne_addons_s" >
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='sales_purchases']//field[@name='supplier']" position="after">
+
+                    <field name="bank_acc" invisible="0"/>
+
+                </xpath>
+            </field>
+        </record>-->
+
+       <record model="ir.ui.view" id="product_product_addons" >
+            <field name="name">product.product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='standard_price']" position="after">
+                           <field name="house_number" invisible="0"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_sale_allocatex_form">
+            <field name="name">sale.order.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                  <xpath expr="//button[@name='action_quotation_send']" position="after">
+                      <button name="print_indicative_allocation_letter" type="object" string="Print Indicative Letter" attrs="{'invisible': [('state','not in',('sale'))]}" class="oe_highlight"/>
+                      <button name="print_final_allocation_letter" string="Offer Letter" type="object" class="oe_highlight" attrs="{'invisible': [('state','not in',('sale'))]}" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_allocation_officerx,construction_rewrite.group_allocation_officer2x" />
+
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][1]" position="replace">
+                      <button name="action_confirm" states="sent" string="Confirm Sale" class="btn-primary o_sale_confirm" type="object" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_sales_manager,construction_rewrite.group_sale_officer,construction_rewrite.group_sale_officer_abu,construction_rewrite.group_sales_manager_abu" />
+
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][2]" position="replace">
+                      <button name="action_confirm" states="draft" string="Confirm Sale" class="o_sale_confirm" type="object" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_sales_manager,construction_rewrite.group_sale_officer,construction_rewrite.group_sale_officer_abu,construction_rewrite.group_sales_manager_abu" />
+
+                </xpath>
+
+
+                <xpath expr="//field[@name='confirmation_date']" position="after">
+                           <field name="payment_type" required="1" invisible="0"/>
+                            <field name="law" invisible="1" string="Lawyer"/>
+                            <!--<field name="branch_id" invisible="0" string="Branch ID"/>-->
+
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                           <field name="bank_account" required="1" invisible="0"/>
+                            <!--<field name="branch_id" invisible="0" string="Branch ID"/>-->
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="sale_order_form_view_nocreatex" model="ir.ui.view">
+	    <field name="name">sale.order.form.view.nocreate</field>
+	    <field name="model">sale.order</field>
+	    <field name="inherit_id" ref="sale.view_order_form"/>
+
+	    <field name="arch" type="xml">
+	        <field name='payment_term_id' position="attributes">
+	            <attribute name="attrs">{'invisible': [('payment_type','==','outright')],'required':[('payment_type','==','installment')]}</attribute>
+	        </field>
+
+	    </field>
+		</record>
+
+        <!--<record model="ir.ui.view" id="view_partner_form">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                  <xpath expr="//field[@name='parent_id']" position="after">
+                        <field name="lawyer"/>
+                </xpath>
+            </field>
+        </record>  -->
+
+        <record model="ir.ui.view" id="view_account_invoiceform">
+            <field name="name">res.invoice.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                   <xpath expr="//field[@name='payment_term_id']" position="before">
+
+                        <field name="agent" invisible="0"/>
+                        <field name="payment_type"/>
+                         <field name="law" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_cancel']" position="after">
+                	<!--<button name="see_breakdown_invoice" string="View Payments" type="object" attrs="{'invisible': [('state','not in',('allocation'))]}" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_allocation_for_accountantsx"/>-->
+   					<button name="see_breakdown_invoice" string="View Payments" type="object" />
+
+                </xpath>
+
+ 				<xpath expr="/form/sheet/notebook/page[1]" position="after">
+			 		<page string ="Payments">
+						<field name="payment_ids"/>
+				    </page>
+
+
+
+        		</xpath>
+
+            </field>
+        </record>
+
+
+
+
+        <record id="plot_allocate_tree_viewx" model="ir.ui.view">
+			<field name="name">plot.allocate.trees</field>
+			<field name="model">plot.allocatex</field>
+			<field name="arch" type="xml">
+				<tree string="Allocation">
+					<field name="name"/>
+                    <field name="building"/>
+					<field name="plot_no" string ="PlotNo"/>
+
+
+
+					<field name="partner_id"/>
+					<field name="offer_dt"/>
+					<field name="offer_price"/>
+                    <field name="amount_dt" string ="Total Amount Paid"/>
+                    <field name="balance"/>
+                    <field name="so_no"/>
+					<field name="payment_plan"/>
+					<!--<field name="offer_letter_reference_number" />-->
+					<field name="agent"/>
+					<field name="state"/>
+					<field name="active" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="plot_allocate_form_viewx">
+			<field name="name">plot.allocate.forms</field>
+			<field name="model">plot.allocatex</field>
+			<field name="arch" type="xml">
+				<form string="Allocation">
+					<header>
+						<!--button name="button_saleorder_create" string="Create Sale Order" type="object" class="oe_highlight" attrs="{'invisible': [('so_no', '!=', False)]}"/-->
+						<button name="button_first" string="Approve" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ('draft', 'deallocation'))]}" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_allocation_officer2x" />
+						<button name="button_allocation" string="Allocate" type="object" class="oe_highlight" attrs="{'invisible': [('state','!=','first')]}" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_allocation_officerx" />
+						<button name="print_final_allocation_letter" string="Offer Letter" type="object" class="oe_highlight" attrs="{'invisible': [('state','not in',('allocation'))]}" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_allocation_officerx,construction_rewrite.group_allocation_officer2x" />
+						<button name="register_payment" string="Register Payment" type="object" invisible="1" class="oe_highlight" attrs="{'invisible': [('state','not in',('allocation'))]}" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_allocation_officerx,construction_rewrite.group_allocation_for_accountantsx" />
+                        <button name="see_breakdown" string="View Payments" type="object" attrs="{'invisible': [('state','not in',('allocation'))]}" groups="construction_rewrite.group_managing_directorx,construction_rewrite.group_allocation_for_accountantsx"/>
+
+                        <button name="print_indicative_allocation_letter" string="Print Indicative" type="object" invisible="1" />
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,allocation" />
+					</header>
+
+					<div class="oe_right oe_button_box" name="buttons" style="margin-top: 4px;">
+						<button class="oe_highlight" string="View payment history" name="payment_all_view" type="object" attrs="{'invisible': [('payment_form_id','=', False)]}" />
+					</div>
+
+					<group>
+            <group>
+                <field name="payment_form_id" invisible="1"/>
+                <field name="payment_invoice" options="{'limit': 0}"/>
+                <field name="branch_id" required ="0"/>
+
+
+                <field name="partner_id" required="1"/>
+                 <field name="current_owner_id" invisible="0"/>
+
+                <field name="name" attrs="{'readonly': [('state','=','allocation')]}" options="{'no_create': True}"/>
+
+                <field name="plot_no" attrs="{'readonly': [('state','=','allocation')]}" options="{'no_create': True}" />
+
+                <field name="build_type" attrs="{'readonly': [('state','=','allocation')]}"/>
+                <field name="building" attrs="{'readonly': [('state','=','allocation')]}"/>
+
+
+                <field name="reference_number" attrs="{'readonly': [('state','=','allocation')]}"/>
+                <field name="verified"/>
+              </group>
+              <group>
+                <field name="offer_dt"/>
+
+                <field name="so_no" attrs="{'readonly': [('state','=','allocation')]}" options="{'no_create': True}"/>
+
+                <field name="phase" attrs="{'readonly': [('state','=','allocation')]}" options="{'no_create': True}"/>
+                <!--<field name="agent" context="{'search_default_agent': 1, 'default_agent': 1, 'search_default_customer': 0, 'default_customer': 0, 'search_default_supplier': 0, 'default_supplier': 0}" />-->
+                 <field name="lawyer_id" required="1"/>
+
+                <field name="agent" invisible="1"/>
+                <field name="agents" invisible="0"/>
+                <field name="payment_type" invisible="0" />
+                <field name="payment_plan" readonly="0" attrs="{'invisible': [('payment_type','==','outright')]}"/>
+
+                <field name="description" placeholder="Extra details about this allocation" />
+                <field name="saleorder_exists" invisible="1"/>
+                <field name="active" invisible="1"/>
+
+              </group>
+					  </group>
+
+              <group colspan="2" class="oe_subtotal_footer oe_right">
+
+                            <field name="offer_price" widget='monetary' />
+                            <field name="amount_dt" widget='monetary' />
+
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                                <h3><b><label for="balance" /></b></h3>
+                            </div>
+                            <h3><field name="balance" nolabel="1" widget='monetary'/></h3>
+                        </group>
+
+					  <br /><br />
+
+            <notebook>
+
+              <page string="Payment Breakdown">
+                <field name="payment_breakdown" readonly="0">
+                  <p style="color: red;">* Save record to see payment breakdown</p>
+                  <tree string="Breakdown payments" editable="bottom">
+                    <field name="name"/>
+                    <field name="amount_to_pay"/>
+                    <field name="interval"/>
+                    <field name="due_date"/>
+                  </tree>
+                </field>
+              </page>
+
+
+
+               <page string="Resale History">
+                <field name="resale_history" readonly="0">
+                  <p style="color: red;">* Create Resale History</p>
+                  <tree string="Resale History" editable="bottom">
+                    <field name="dest_cust"/>
+                    <field name="plot_no"/>
+
+                    <field name="bank"/>
+                    <field name="amount_dt"/>
+                    <field name="offer_price"/>
+
+                    <field name="resale_fee"/>
+                    <field name="status"/>
+
+                     <field name="payment_type"/>
+                      <field name="payment_plan"/>
+
+                        <field name="date"/>
+                        <button class="oe_highlight" string="Offer Letter" name="print_resale_letter" type="object" attrs="{'invisible': [('status','=', 'paid')]}" />
+                  </tree>
+                </field>
+              </page>
+
+              <!--<page string ="Description">
+                    <field name="description" placeholder="Extra details about this allocation" />
+                </page>-->
+            </notebook>
+
+            <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+              <field name="message_ids" widget="mail_thread"/>
+            </div>
+				  </form>
+			  </field>
+		  </record>
+          <record model="ir.ui.view" id="plot_allocate_viewx">
+      	<field name="name">plot.allocate.views</field>
+		    <field name="model">plot.allocatex</field>
+		    <field name="arch" type="xml">
+				 <search string="Allocation">
+						<field name="name"/>
+						<field name="build_type"/>
+						<field name="plot_no" />
+						<field name="partner_id" />
+						<field name="offer_letter_reference_number" />
+					 <group expand="0" string="Group By">
+				       <filter string="Customer" icon="terp-personal" domain="[]" context="{'group by':'partner_id'}" />
+				       <filter string="Sales Order Number" icon="terp-personel" domain="[]" context="{'group by':'so_no'}" />
+					   <filter string="Plot Number" icon="terp-personel" domain="[]" context="{'group by':'plot_no'}" />
+					   <filter string="Reference Number (Offer letter)" icon="terp-personel" domain="[]" context="{'group by':'offer_letter_reference_number'}" />
+				    </group>
+			  </search>
+		 	</field>
+	  </record>
+      <!--inherited formview to hide create and edit option -->
+		<record id="plot_allocate_form_view_nocreatex" model="ir.ui.view">
+	    <field name="name">plot.allocate.form.view.nocreate</field>
+	    <field name="model">plot.allocatex</field>
+	    <field name="inherit_id" ref="plot_allocate_form_viewx"/>
+	    <field name="groups_id" eval="[(6, 0, [ref('construction_rewrite.group_managing_directorx') ])]"/>
+	    <field name="arch" type="xml">
+	        <field name='name' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='plot_no' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='partner_id' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='so_no' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='phase' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+	    </field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_plot_allocatex">
+			<field name="name">Allocation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">plot.allocatex</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Allocate a plot.
+              </p>
+              </field>
+		</record>
+		<record model="ir.actions.act_window" id="action_plot_allocate_archivex">
+			<field name="name">Allocation History</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">plot.allocatex</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('active','=', False)]</field>
+		</record>
+
+		<!-- window for Title documents -->
+		<record model="ir.actions.act_window" id="action_title_documentsx">
+			<field name="name">Title Documents</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">title.documentsx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Track Customers before issuing Title documents
+              </p>
+              </field>
+		</record>
+
+        <record id="title_documents_tree_viewx" model="ir.ui.view">
+			<field name="name">title.documents.treex</field>
+			<field name="model">title.documentsx</field>
+			<field name="arch" type="xml">
+				<tree string="Title Documents">
+					<field name="project_site"/>
+					<field name="customer"/>
+					<field name="plot_no"/>
+					<field name="completed_documentation" />
+					<field name="completed_payment" />
+					<field name="vat_payment" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of title documents-->
+		<record model="ir.ui.view" id="title_documents_form_viewx">
+			<field name="name">title.documents.formx</field>
+			<field name="model">title.documentsx</field>
+			<field name="arch" type="xml">
+				<form string="Title Documents">
+					<group>
+						<group>
+							<field name="project_site"/>
+							<field name="customer"/>
+							<field name="plot_no"/>
+							<field name="completed_documentation" widget="radio"/>
+							<field name="completed_payment" widget="radio"/>
+							<field name="vat_payment" widget="radio"/>
+						</group>
+					</group>
+					<button name="print_deed_of_sublease" string="Process" type="object" disabled="True" />
+				</form>
+			</field>
+		</record>
+        <menuitem id="menu_plot_mainx" name="Allocation"/>
+		<menuitem id="submenu_plotx" name="Plot Allocation" parent="menu_plot_mainx" sequence="1"/>
+		<menuitem id="submenu_plot_allocationx" name="Allocation" parent="submenu_plotx" action="action_plot_allocatex"/>
+		<menuitem id="submenu_plot_allocation_archivex" name="Allocation History" parent="submenu_plotx" action="action_plot_allocate_archivex"/>
+		<menuitem id="submenu_allocation_historyx" name="Title Documents" parent="submenu_plotx" action="action_title_documentsx" />
+
+        <record model="ir.ui.view" id="register_payment_wizard_for_plot_form_viewx">
+			<field name="name">Register Payment Wizard For Plots</field>
+			<field name="model">register.payment.wizard.for.plotx</field>
+			<field name="arch" type="xml">
+				<form string="Register Payment">
+					<group>
+						<group>
+    					  <field name="plot_id" readonly="1"/>
+    					  <field name="amount" invisible="1"/>
+								<field name="payment_for" domain="[('analytic_account.name', '=', project_name)]" />
+								<field name="date" />
+					  </group>
+					  <group>
+						    <field name="customer" invisible="1"/>
+								<field name="project_name" invisible="1" />
+								<field name="bank" />
+								<field name="payment_type" placeholder="Payment type and optional notes about this payment" />
+						    <field name="id" invisible="1"/>
+						    <field name="payment_view_id" invisible="1"/>
+						</group>
+						<footer>
+                <button name="button_pay" type="object" string="Pay" class="oe_highlight"/>
+                <button string="Cancel" class="oe_link" special="cancel"/>
+            </footer>
+					</group>
+				</form>
+			</field>
+		</record>
+
+    <record model="ir.ui.view" id="register_payment_wizard_for_plot_tree_viewx">
+			<field name="name">Register Payment Wizard For Plots</field>
+			<field name="model">register.payment.wizard.for.plotx</field>
+			<field name="arch" type="xml">
+				<tree string="Register Payment">
+    			<field name="plot_id"/>
+					<field name="customer"/>
+					<field name="date"/>
+					<field name="amount" sum="Total Payment"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_register_payment_wizard">
+			<field name="name">Register Payment</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">register.payment.wizard.for.plotx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+
+              </p>
+              </field>
+		</record>
+
+
+
+
+        <record model="ir.ui.view" id="payments_view_for_plot_form_viewx">
+			<field name="name">Payments Form view For Plots</field>
+			<field name="model">register.payment.view.for.plotx</field>
+			<field name="arch" type="xml">
+				<form string="Register Payment" create="false" delete="false">
+					<div>
+						<h1><field name="name" readonly="1"/></h1>
+					</div>
+					<group>
+					<group>
+						<field name="plot_id" readonly="1"/>
+					</group>
+					<group>
+					  <field name="customer" readonly="1"/>
+						<button name="print_payment_receipt" string="Print payment receipt" type="object" class="oe_highlight" />
+					</group>
+					</group>
+					<field name="payment_line">
+						<tree string="Payments" editable="bottom">
+		    			<field name="name"/>
+							<field name="payment_type"/>
+							<field name="customer"/>
+							<field name="date"/>
+							<field name="bank"/>
+							<field name="amount" sum="Total Payment"/>
+							<button name="print_receipt" string="Print receipt" type="object" class="oe_highlight" />
+						</tree>
+					</field>
+				</form>
+			</field>
+		</record>
+
+
+<!--#################################   ########################-->
+
+        <record id="projectsite_master_tree_viewx" model="ir.ui.view">
+			<field name="name">projectsite.master.treex</field>
+			<field name="model">projectsite.masterx</field>
+			<field name="arch" type="xml">
+				<tree string="Project Site">
+					<field name="name"/>
+					<field name="location"/>
+                    <field name="branch_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of projectsite master-->
+		<record model="ir.ui.view" id="projectsite_master_form_viewx">
+			<field name="name">projectsite.masterx</field>
+			<field name="model">projectsite.masterx</field>
+			<field name="arch" type="xml">
+				<form string="Project Site">
+					<group>
+						<!--<field name="site_plan" widget="image" />-->
+						<field name="name"/>
+						<field name="location"/>
+                        <field name="branch_id"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_projectsite_masterx">
+			<field name="name">Project Site</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">projectsite.masterx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Create Site Type.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_plot_configurationx" name="Configuration" parent="menu_plot_mainx" sequence="3" groups="construction_rewrite.group_managing_directorx"/>
+		<menuitem id="submenu_projectsite_masterx" name="Site Type Master" parent="submenu_plot_configurationx"
+			action="action_projectsite_masterx" sequence="2"/>
+
+
+
+        <!-- form view of account_interface-->
+		<record model="ir.ui.view" id="account_interface_formx">
+			<field name="name">Configure account interface</field>
+			<field name="model">account.interfacex</field>
+			<field name="arch" type="xml">
+        <form>
+					<group>
+  					<field name="analytic_account"/>
+  					<field name="journal_id"/>
+        	</group>
+				</form>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_account_interfacex">
+			<field name="name">Configure account interface</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.interfacex</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to setup the account interface
+                The values entered here would be used to determine the appropraite
+                account for plot payments
+              </p>
+              </field>
+		</record>
+
+    <menuitem id="submenu_account_interfacex" name="Account Interface"
+			parent="submenu_plot_configurationx" action="action_account_interfacex" sequence="1" />
+
+
+
+		<!-- tree view of buildingtype master-->
+		<record id="buildingtype_master_tree_viewx" model="ir.ui.view">
+			<field name="name">buildingtype.master.treex</field>
+			<field name="model">buildingtype.masterx</field>
+			<field name="arch" type="xml">
+				<tree string="Type Of Building">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of buildingtype master-->
+		<record model="ir.ui.view" id="buildingtype_master_form_viewx">
+			<field name="name">buildingtype.masterx</field>
+			<field name="model">buildingtype.masterx</field>
+			<field name="arch" type="xml">
+				<form string="Type Of Building">
+					<group>
+						<field name="name"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_buildingtype_masterx">
+			<field name="name">Type of Building</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">buildingtype.masterx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Create Type Of Building for Plot.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_buildingtype_masterx" name="Building Type Master" parent="submenu_plot_configurationx"
+			action="action_buildingtype_masterx" sequence="2"/>
+
+			<!-- tree view of building master-->
+		<record id="building_master_tree_viewx" model="ir.ui.view">
+			<field name="name">building.master.treex</field>
+			<field name="model">building.masterx</field>
+			<field name="arch" type="xml">
+				<tree string="Building">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of building master-->
+		<record model="ir.ui.view" id="building_master_form_viewx">
+			<field name="name">building.masterx</field>
+			<field name="model">building.masterx</field>
+			<field name="arch" type="xml">
+				<form string="Building">
+					<group>
+						<field name="name"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_building_masterx">
+			<field name="name">Building</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">building.masterx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Create Building Name for Plot.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_building_masterx" name="Building Master" parent="submenu_plot_configurationx"
+			action="action_building_masterx" sequence="3"/>
+
+			<!-- tree view of phase master-->
+		<record id="phase_master_tree_viewx" model="ir.ui.view">
+			<field name="name">phase.master.treex</field>
+			<field name="model">phase.masterx</field>
+			<field name="arch" type="xml">
+				<tree string="Phase">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of phase master-->
+		<record model="ir.ui.view" id="phase_master_form_viewx">
+			<field name="name">phase.masterx</field>
+			<field name="model">phase.masterx</field>
+			<field name="arch" type="xml">
+				<form string="Phase">
+					<group>
+						<field name="name"/>
+					</group>
+				</form>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_phase_masterx">
+			<field name="name">Phase</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">phase.masterx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Create a Phase.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_phase_masterx" name="Phase Master" parent="submenu_plot_configurationx"
+			action="action_phase_masterx" sequence="4"/>
+
+
+<!--##################### #####################################################-->
+        <record id="phase_master_tree_viewx" model="ir.ui.view">
+			<field name="name">unit.master.treex</field>
+			<field name="model">unit.masterx</field>
+			<field name="arch" type="xml">
+				<tree string="Unit">
+					<field name="project_site"/>
+					<field name="building_type"/>
+					<field name="house_type"/>
+					<field name="plot_no"/>
+					<!--<field name="offer_price" groups="construction_rewrite.group_csu" />-->
+					<field name="status"/>
+					<field name="phase"/>
+					<field name="investor"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of unit master-->
+		<record model="ir.ui.view" id="unit_master_form_viewx">
+			<field name="name">unit.masterx</field>
+			<field name="model">unit.masterx</field>
+			<field name="arch" type="xml">
+				<form string="Unit master">
+					<group>
+					<field name="project_site"/>
+					<field name="building_type"/>
+					<field name="house_type"/>
+					<field name="plot_no"/>
+					<field name="offer_price" required="1" invisible="0"/>
+					<field name="status"/>
+					<field name="phase"/>
+					<field name="block_no"/>
+					<field name="investor"/>
+					<field name="analytic_account" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!--search view of plot allocation-->
+		<record model="ir.ui.view" id="unit_master_search_viewx">
+			<field name="name">unit.master.search.views</field>
+			<field name="model">unit.masterx</field>
+			<field name="arch" type="xml">
+			 <search string="Unit master">
+					<field name="project_site"/>
+					<field name="building_type"/>
+					<field name="house_type" />
+					<!--<field name="offer_price" />-->
+					<field name="plot_no" />
+					<field name="status" />
+					<field name="investor" />
+				 <group expand="0" string="Group By">
+					 <filter string="Project site" icon="terp-personal" domain="[]" context="{'group by':'project_site'}"/>
+					 <filter string="Building type" icon="terp-personel" domain="[]" context="{'group by':'building_type'}"/>
+					 <filter string="House type" icon="terp-personel" domain="[]" context="{'group by':'house_type'}"/>
+					 <filter string="Status" icon="terp-personel" domain="[]" context="{'group by':'status'}" />
+				</group>
+			</search>
+		</field>
+	</record>
+
+		<record model="ir.actions.act_window" id="action_unit_masterx">
+			<field name="name">Unit Masters</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">unit.masterx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Create a new Unit.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_unit_masterx" name="Unit Master" parent="submenu_plot_configurationx"
+			action="action_unit_masterx" sequence="5"/>
+
+			<!-- tree view of unit master-->
+
+<!--##########################3 ###########################3-->
+    <record id="plot_deallocate_tree_viewx" model="ir.ui.view">
+			<field name="name">plot.deallocate.treex</field>
+			<field name="model">plot.deallocatex</field>
+			<field name="arch" type="xml">
+				<tree string="Deallocation">
+					<field name="plot_no" string="Plot Number"/>
+					<field name="reason"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of plot deallocation-->
+		<record model="ir.ui.view" id="plot_deallocate_form_viewx">
+			<field name="name">plot.deallocate.forms</field>
+			<field name="model">plot.deallocatex</field>
+			<field name="arch" type="xml">
+				<form string="Deallocation">
+
+					<header>
+						<button name="button_approve"  string="Approve" groups="construction_rewrite.group_managing_directorx" type="object" class="oe_highlight" attrs="{'invisible': [('state', '=', 'approved')]}" />
+						<field name="state" widget="statusbar" statusbar_visible="draft, approved" />
+					</header>
+
+					<group>
+							<field name="plot_no" attrs="{'readonly': [('state','=','approved')]}"/>
+							<field name="reason" attrs="{'readonly': [('state','=','approved')]}"/>
+					</group>
+
+					<!--Messaging -->
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+	  	<!--search view of plot deallocation-->
+		<record model="ir.ui.view" id="plot_deallocate_viewx">
+      	<field name="name">plot.deallocate.views</field>
+		    <field name="model">plot.deallocatex</field>
+		    <field name="arch" type="xml">
+			 <search string="Deallocation">
+					<field name="plot_no"/>
+					<field name="reason"/>
+				 <group expand="0" string="Group By">
+			     <filter string="Customer" icon="terp-personal" domain="[]" context="{'group by':'partner_id'}"/>
+			     <filter string="Plot Number" icon="terp-personel" domain="[]" context="{'group by':'plot_no'}"/>
+			     </group>
+		     </search>
+		 	</field>
+	  	</record>
+
+		<record model="ir.actions.act_window" id="action_plot_deallocatex">
+			<field name="name">Deallocations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">plot.deallocatex</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Deallocate a plot.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_plot_deallocationx" name="Deallocation" parent="submenu_plotx" action="action_plot_deallocatex"/>
+
+
+    <record id="price_review_tree_viewx" model="ir.ui.view">
+      <field name="name">price review tree</field>
+      <field name="model">price.reviewx</field>
+      <field name="arch" type="xml">
+        <tree string="Price review">
+          <field name="project_site" />
+          <field name="building_type" />
+          <field name="house_type" />
+          <field name="current_price" />
+        </tree>
+      </field>
+    </record>
+
+    <!-- form view of price review-->
+    <record model="ir.ui.view" id="price_review_form_viewx">
+      <field name="name">price.review.form</field>
+      <field name="model">price.reviewx</field>
+      <field name="arch" type="xml">
+        <form string="Price review">
+          <group>
+            <field name="project_site" attrs="{'readonly': [('status','=','saved')]}"/>
+            <field name="building_type" attrs="{'readonly': [('status','=','saved')]}"/>
+            <field name="house_type" attrs="{'readonly': [('status','=','saved')]}"/>
+            <field name="current_price" attrs="{'readonly': [('status','=','saved')]}"/>
+            <field name="status" invisible="1" />
+          </group>
+          <br />
+          <div class="oe_chatter">
+				<field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+				<field name="message_ids" widget="mail_thread"/>
+		  </div>
+        </form>
+      </field>
+    </record>
+
+    <!--search view of price review-->
+    <record model="ir.ui.view" id="price_review_searchx">
+      <field name="name">price.review.searchs</field>
+      <field name="model">price.reviewx</field>
+      <field name="arch" type="xml">
+       <search string="Price review">
+         <field name="project_site"/>
+         <field name="building_type" />
+         <field name="house_type" />
+         <field name="current_price" />
+
+         <group expand="0" string="Group By">
+           <filter string="Project site" icon="terp-personal" domain="[]" context="{'group by':'project_site'}"/>
+           <filter string="Building type" icon="terp-personel" domain="[]" context="{'group by':'building_type'}"/>
+           <filter string="House type" icon="terp-personel" domain="[]" context="{'group by':'house_type'}"/>
+           <filter string="Current price" icon="terp-personel" domain="[]" context="{'group by':'current_price'}" />
+         </group>
+       </search>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_price_reviewx">
+      <field name="name">Price review</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">price.reviewx</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Change the price for plots in batch
+              </p>
+              </field>
+    </record>
+
+    <menuitem id="submenu_price_reviewx" name="Price review" parent="construction_rewrite.submenu_plot_configurationx"
+      groups="construction_rewrite.group_managing_directorx" action="action_price_reviewx" sequence="6"/>
+
+<!--#$######################################################################################################-->
+
+
+ <record id="re_sale_tree_viewx" model="ir.ui.view">
+			<field name="name">re.sale.treex</field>
+			<field name="model">re.salexxmain</field>
+			<field name="arch" type="xml">
+				<tree string="Resale">
+
+					<field name="plot_no"/>
+
+					<field name="dest_cust"/>
+					<field name="bank"/>
+					<field name="payment_type"/>
+					<field name="payment_plan"/>
+					<field name="resale_fee"/>
+					<field name="amount_dt"/>
+					<field name="date"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="re_sale_form_viewx">
+			<field name="name">re.salexxmain.form</field>
+			<field name="model">re.salexxmain</field>
+			<field name="arch" type="xml">
+				<form string="Resale">
+					<group>
+						<group>
+							<field name="plot_no"/>
+
+					<field name="dest_cust"/>
+					<field name="bank"/>
+					<field name="offer_price"/>
+
+					<field name="payment_type"/>
+
+						</group>
+						<group>
+							<field name="payment_plan"/>
+
+
+					<field name="resale_fee"/>
+					<field name="amount_dt"/>
+					<field name="date"/>
+					<button class="oe_highlight" string="Offer Letter" name="print_resale_letter" type="object" attrs="{'invisible': [('status','=', 'paid')]}" />
+
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+
+
+		<record model="ir.ui.view" id="re_sale_viewx_main">
+      	<field name="name">re.sale.viewxmain</field>
+		    <field name="model">re.salexxmain</field>
+		    <field name="arch" type="xml">
+			 <search string="Resale">
+
+					<field name="plot_no"/>
+
+					<field name="dest_cust"/>
+
+					<field name="resale_fee"/>
+					<field name="amount_dt"/>
+
+				 <group expand="0" string="Group By">
+
+			     <filter string="Destination(Customer)" icon="terp-personal" domain="[]" context="{'group by':'dest_cust'}"/>
+			     <filter string="Plot Number" icon="terp-personel" domain="[]" context="{'group by':'plot_no'}"/>
+			     </group>
+		     </search>
+		 	</field>
+	  	</record>
+
+	  	<record model="ir.actions.act_window" id="action_plot_re_salexmain">
+			<field name="name">Resale</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">re.salexxmain</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Resell a plot.
+              </p>
+              </field>
+		</record>
+<!--##########################3 ###########################3-->
+
+    <record id="re_sale_tree_viewx" model="ir.ui.view">
+			<field name="name">re.sale.treex</field>
+			<field name="model">re.salexx</field>
+			<field name="arch" type="xml">
+				<tree string="Resale">
+					<field name="name"/>
+					<field name="plot_no"/>
+					<field name="source_cust"/>
+					<field name="dest_cust"/>
+					<field name="purpose"/>
+					<field name="appl_deduct"/>
+					<field name="resale_fee"/>
+					<field name="amount_dt"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="re_sale_form_viewx">
+			<field name="name">re.sale.formx</field>
+			<field name="model">re.salexx</field>
+			<field name="arch" type="xml">
+				<form string="Resale">
+					<group>
+						<group>
+							<field name="name" options="{'no_create': False}" />
+							<field name="plot_no" options="{'no_create': False}" />
+							<field name="source_cust" options="{'no_create': False}"/>
+							<field name="dest_cust" options="{'no_create': False}"/>
+							<field name="purpose"/>
+						</group>
+						<group>
+							<field name="amount_dt" />
+							<field name="balance" />
+							<field name="appl_deduct" widget="radio"/>
+							<field name="resale_fee" attrs="{'invisible': [('appl_deduct', '!=', 'yes')]}"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="re_sale_form_view_nocreatex" model="ir.ui.view">
+	    <field name="name">re.sale.form.view.nocreatex</field>
+	    <field name="model">re.salexx</field>
+	    <field name="inherit_id" ref="re_sale_form_viewx"/>
+	    <field name="groups_id" eval="[(6, 0, [ref('construction_rewrite.group_managing_directorx') ])]"/>
+	    <field name="arch" type="xml">
+	        <field name='name' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='plot_no' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='source_cust' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='dest_cust' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+	    </field>
+		</record>
+
+		<record model="ir.ui.view" id="re_sale_viewx">
+      	<field name="name">re.sale.viewx</field>
+		    <field name="model">re.salexx</field>
+		    <field name="arch" type="xml">
+			 <search string="Resale">
+					<field name="name"/>
+					<field name="plot_no"/>
+					<field name="source_cust"/>
+					<field name="dest_cust"/>
+					<field name="purpose"/>
+					<field name="appl_deduct"/>
+					<field name="resale_fee"/>
+					<field name="amount_dt"/>
+
+				 <group expand="0" string="Group By">
+			     <filter string="Source(Customer)" icon="terp-personal" domain="[]" context="{'group by':'source_cust'}"/>
+			     <filter string="Destination(Customer)" icon="terp-personal" domain="[]" context="{'group by':'dest_cust'}"/>
+			     <filter string="Plot Number" icon="terp-personel" domain="[]" context="{'group by':'plot_no'}"/>
+			     </group>
+		     </search>
+		 	</field>
+	  	</record>
+
+	  	<record model="ir.actions.act_window" id="action_plot_re_salex">
+			<field name="name">Resale</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">re.salexx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Resell a plot.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_plot_re_salex" name="Resale" parent="submenu_plotx" action="action_plot_re_salex"/>
+
+
+
+        <!--##########################3 ###########################3-->
+        <!-- tree view of plot deallocation-->
+		<record id="plot_revocate_tree_viewx" model="ir.ui.view">
+			<field name="name">plot.revocate.treex</field>
+			<field name="model">plot.revocatex</field>
+			<field name="arch" type="xml">
+				<tree string="Revocation">
+					<field name="name"/>
+					<field name="plot_no"/>
+					<field name="partner_id"/>
+					<field name="reason"/>
+					<field name="amount_dt"/>
+					<field name="appl_deduct"/>
+					<field name="administrative_charge"/>
+					<field name="refund_amount"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of plot deallocation-->
+		<record model="ir.ui.view" id="plot_revocate_form_viewx">
+			<field name="name">plot.revocate.formx</field>
+			<field name="model">plot.revocatex</field>
+			<field name="arch" type="xml">
+				<form string="Revocation">
+					<group>
+						<group>
+							<field name="name" options="{'no_create': True}" />
+							<field name="plot_no" options="{'no_create': True}" />
+							<field name="partner_id" options="{'no_create': True}" />
+							<field name="reason"/>
+							<field name="appl_deduct" widget="radio"/>
+						</group>
+						<group>
+							<field name="amount_dt"/>
+							<field name="administrative_charge" attrs="{'invisible': [('appl_deduct', '!=', 'yes')]}"/>
+							<field name="refund_amount"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!--inherited formview to hide create and edit option -->
+		<record id="plot_revocate_form_view_nocreatex" model="ir.ui.view">
+	    <field name="name">plot.revocate.form.view.nocreatex</field>
+	    <field name="model">plot.revocatex</field>
+	    <field name="inherit_id" ref="plot_revocate_form_viewx"/>
+	    <field name="groups_id" eval="[(6, 0, [ref('construction_rewrite.group_managing_directorx') ])]"/>
+	    <field name="arch" type="xml">
+	        <field name='name' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='plot_no' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='partner_id' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+	    </field>
+		</record>
+
+	  <!--search view of plot deallocation-->
+		<record model="ir.ui.view" id="plot_revocate_viewx">
+      		<field name="name">plot.revocate.viewx</field>
+		    <field name="model">plot.revocatex</field>
+		    <field name="arch" type="xml">
+			 <search string="Revocation">
+	  			<field name="name"/>
+					<field name="plot_no"/>
+					<field name="partner_id"/>
+					<field name="reason"/>
+					<field name="amount_dt"/>
+					<field name="appl_deduct"/>
+					<field name="administrative_charge"/>
+					<field name="refund_amount"/>
+
+				 <group expand="0" string="Group By">
+			     <filter string="Customer" icon="terp-personal" domain="[]" context="{'group by':'partner_id'}"/>
+			     <filter string="Plot Number" icon="terp-personel" domain="[]" context="{'group by':'plot_no'}"/>
+			     </group>
+		     </search>
+		 	</field>
+	  	</record>
+
+		<record model="ir.actions.act_window" id="action_plot_revocatex">
+			<field name="name">Revocationx</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">plot.revocatex</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Revoke a plot.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_plot_revocationx" name="Revocation" parent="construction_rewrite.submenu_plotx" action="action_plot_revocatex"/>
+
+<!--############################   ############# -->
+        <!-- tree view of plot transfer-->
+		<record id="transfer_tree_viewx" model="ir.ui.view">
+			<field name="name">transfer.treex</field>
+			<field name="model">transferx</field>
+			<field name="arch" type="xml">
+				<tree string="Transfer">
+					<field name="name"/>
+					<field name="plot_no" />
+					<field name="source_cust"/>
+					<field name="dest_cust"/>
+					<field name="purpose"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- form view of plot transfer-->
+		<record model="ir.ui.view" id="transfer_form_viewx">
+			<field name="name">transfer.formx</field>
+			<field name="model">transferx</field>
+			<field name="arch" type="xml">
+				<form string="Transfer">
+					<group>
+							<field name="name"/><!-- options="{'no_create': True}" />-->
+							<field name="plot_no"/><!--options="{'no_create': True}" />-->
+							<field name="source_cust"/><!--options="{'no_create': True}" />-->
+							<field name="dest_cust" options="{'no_create': False}" />
+							<field name="purpose"/>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!--inherited formview to hide create and edit option -->
+		<record id="transfer_form_view_nocreatex" model="ir.ui.view">
+	    <field name="name">transfer.form.view.nocreatex</field>
+	    <field name="model">transferx</field>
+	    <field name="inherit_id" ref="transfer_form_viewx"/>
+	    <field name="groups_id" eval="[(6, 0, [ref('construction_rewrite.group_managing_directorx') ])]"/>
+	    <field name="arch" type="xml">
+	        <field name='name' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='plot_no' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='source_cust' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+					<field name='dest_cust' position="attributes">
+	            <attribute name="options">{'no_create': False}</attribute>
+	        </field>
+	    </field>
+		</record>
+
+	  <!--search view of plot transfer-->
+		<record model="ir.ui.view" id="re_transfer_viewx">
+      	<field name="name">transfer.views</field>
+		    <field name="model">transferx</field>
+		    <field name="arch" type="xml">
+			 <search string="Transfer">
+					<field name="name"/>
+					<field name="plot_no"/>
+					<field name="source_cust"/>
+					<field name="dest_cust"/>
+					<field name="purpose"/>
+
+				 <group expand="0" string="Group By">
+			     <filter string="Source(Customer)" icon="terp-personal" domain="[]" context="{'group by':'source_cust'}"/>
+			     <filter string="Destination(Customer)" icon="terp-personal" domain="[]" context="{'group by':'dest_cust'}"/>
+			     <filter string="Plot Number" icon="terp-personel" domain="[]" context="{'group by':'plot_no'}"/>
+			     </group>
+		     </search>
+		 	</field>
+	  	</record>
+
+	  	<record model="ir.actions.act_window" id="action_plot_transferx">
+			<field name="name">Transfers</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">transferx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Transfer a Plot.
+              </p>
+              </field>
+		</record>
+		<menuitem id="submenu_plot_transferx" name="Transfer" parent="submenu_plotx" action="action_plot_transferx"/>
+
+
+
+         <record id="lawyer_model_form_viewx" model="ir.ui.view">
+                    <field name="name">Lawyers</field>
+                     <field name="model">lawyer.model</field>
+                    <field eval="25" name="priority"/>
+                    <field name="arch" type="xml">
+                    <form string="Lawyers">
+
+                      <sheet>
+
+                   <div class="oe_title">
+                        <label for="lawyer"/>
+                        <h1>
+                            <field name="lawyer" placeholder="e.g. Lawyer Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="branch_id"/>
+
+                        </group>
+                        <group>
+
+                              <field name="create_date" string="Date Registered"/>
+
+                        </group>
+                        </group>
+                         </sheet>
+                    </form>
+                    </field>
+            </record>
+
+         <record model="ir.ui.view" id="lawyer_model_tree_viewx">
+			<field name="name">Lawyer Model List</field>
+			<field name="model">lawyer.model</field>
+			<field name="arch" type="xml">
+				<tree string="Lawyer">
+
+                   <field name="lawyer" required="1"/>
+                 <field name="branch_id"/>
+               	</tree>
+			</field>
+		</record>
+     <record model="ir.actions.act_window" id="action_plot_lawyer2">
+			<field name="name">Lawyer</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">lawyer.model</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Lawyer.
+              </p>
+              </field>
+		</record>
+
+		<menuitem id="submenu_plot_lawyer" name="Lawyer" parent="submenu_plot_configurationx" action="action_plot_lawyer2"/>
+
+  <record id="agent_model_form_viewx" model="ir.ui.view">
+                    <field name="name">Agents</field>
+                     <field name="model">agent.model</field>
+                    <field eval="25" name="priority"/>
+                    <field name="arch" type="xml">
+                    <form string="Agent">
+
+                      <sheet>
+
+                   <div class="oe_title">
+                        <label for="agent"/>
+                        <h1>
+                            <field name="agent" placeholder="e.g. Agent Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="branch_id"/>
+
+                        </group>
+                        <group>
+
+                              <field name="create_date" string="Date Registered"/>
+
+                        </group>
+                        </group>
+                         </sheet>
+                    </form>
+                    </field>
+            </record>
+
+         <record model="ir.ui.view" id="agent_model_tree_viewx">
+			<field name="name">Agents Model List</field>
+			<field name="model">agent.model</field>
+			<field name="arch" type="xml">
+				<tree string="Agents">
+
+                   <field name="agent"/>
+                 <field name="branch_id"/>
+               	</tree>
+			</field>
+		</record>
+
+
+<act_window id="action_plot_agent2"
+name="Agent Model"
+res_model="agent.model"
+view_mode="tree,form"/>
+		<menuitem id="submenu_plot_agent" name="Agents" parent="submenu_plot_configurationx" action="action_plot_agent2"/>
+
+
+  </data>
+
+
+</odoo>

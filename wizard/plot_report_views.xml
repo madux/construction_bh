@@ -1,0 +1,34 @@
+<odoo>
+	<data>
+
+		<!--view of plot screen report(wizard) -->
+		<record model="ir.ui.view" id="plot_report_form_viewx">
+			<field name="name">Plot Report</field>
+			<field name="model">plot.reportx</field>
+			<field name="arch" type="xml">
+				<form string="Select Building">
+					<group>
+						<group>
+   				    		<field name="name"/>
+						</group>
+					</group>
+					<footer>
+                        <button name="print_report" type="object" string="Print Report" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_plot_reportx">
+			<field name="name">Select Building</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">plot.reportx</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		<menuitem id="menu_reportx" name="Report" parent="construction_rewrite.menu_plot_mainx" sequence="2"/>
+		<menuitem id="submenu_plot_reportx" name="Plot Report" parent="menu_reportx" action="action_plot_reportx" />
+	</data>
+</odoo>

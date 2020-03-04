@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+
+    <template id="report.offer_letter">
+      <t t-name="report.offer_letter">
+          <!-- Multicompany -->
+          <t t-if="o and 'company_id' in o">
+              <t t-set="company" t-value="o.company_id"/>
+          </t>
+          <t t-if="not o or not 'company_id' in o">
+              <t t-set="company" t-value="res_company"/>
+          </t>
+
+          <t t-call="report.offer_letter_header"/>
+          <t t-raw="0"/>
+          <t t-call="report.offer_letter_footer"/>
+      </t>
+    </template>
+
+    <template id="report.offer_letter_header">
+      <t t-name="report.offer_letter_header">
+			<div class="header">
+				<div class="row">
+					<div class="col-xs-3">
+            <img src="http://i.imgur.com/2vxb4Lc.png" style="max-height: 100px;" />
+					</div>
+					<div class="col-xs-9 text-right" style="margin-top:20px;"/>
+				</div>
+				<div class="row zero_min_height">
+					<div class="col-xs-12">
+						<!--div style="border-bottom: 1px solid black;"/ -->
+					</div>
+				</div>
+			</div>
+		</t>
+    </template>
+
+    <template id="report.offer_letter_footer">
+      <t t-name="report.offer_letter_footer">
+        <div class="footer">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li><span class="page"/></li>
+                </ul>
+
+                <div class="col-xs-5" style="float: right; margin-top: -20px;">
+                  <img src="http://i.imgur.com/qSPXO8s.png" style="max-height: 50px; margin-left: 30px;" />
+      					</div>
+
+            </div>
+        </div>
+      </t>
+    </template>
+
+
+    <!--Fish offer letter -->
+    <template id="report.fish_template">
+      <t t-name="report.fish_template">
+          <!-- Multicompany -->
+          <t t-if="o and 'company_id' in o">
+              <t t-set="company" t-value="o.company_id"/>
+          </t>
+          <t t-if="not o or not 'company_id' in o">
+              <t t-set="company" t-value="res_company"/>
+          </t>
+
+          <t t-call="report.fish_template_header"/>
+          <t t-raw="0"/>
+          <t t-call="report.fish_template_footer"/>
+      </t>
+    </template>
+
+    <template id="report.fish_template_header">
+      <t t-name="report.fish_template_header">
+			  <div class="header">
+				  <div class="row">
+					  <div class="col-xs-3">
+              <img src="http://i.imgur.com/2vxb4Lc.png" style="max-height: 100px;" />
+					  </div>
+            <div class="col-xs-3 col-xs-push-6">
+              <img src="http://i.imgur.com/0c7QfsS.png" style="max-height: 100px;" />
+            </div>
+			     </div>
+        </div>
+		  </t>
+    </template>
+
+    <template id="report.fish_template_footer">
+      <t t-name="report.fish_template_footer">
+        <div class="footer">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li><span class="page"/></li>
+                </ul>
+
+                <div class="col-xs-5" style="float: right; margin-top: -20px;">
+                  <img src="http://i.imgur.com/qSPXO8s.png" style="max-height: 50px; margin-left: 30px;" />
+      					</div>
+            </div>
+        </div>
+      </t>
+    </template>
+
+  </data>
+</odoo>

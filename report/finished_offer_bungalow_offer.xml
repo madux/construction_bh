@@ -1,0 +1,407 @@
+<odoo>
+  <data>
+
+    <template id="new_offer_letter_report_document">
+    <div class="header">
+				<div class="row">
+					<div class="col-xs-3">
+      <img src="https://imgur.com/gLIZY9S.jpg" style="max-height: 150px;" />
+					</div>
+					<!--<div class="col-xs-offset-2 text-right">
+						<img src='/construction_rewrite/static/img/logobh.png' style="max-height: 45px;"/>
+					</div>-->
+
+
+
+				</div>
+				<hr/>
+			</div>
+   <t t-foreach="docs" t-as="o">
+               <!-- <t t-call="report.internal_layout">-->
+
+            <div class="page" style="max-width: 660px; margin: auto;">
+
+        <style>
+
+					body {
+					  line-height: 180%;
+						font-size: 18px;
+						font-family: 'EB Garamond';
+					}
+
+					page {
+						margin-bottom: -30px;
+					}
+
+					p {
+					  text-align: justify;
+						margin: 0;
+					}
+
+          .abc {
+  				margin-left: 40px;
+    			list-style-type: lower-alpha;
+				 }
+
+					li {
+					  text-align: justify;
+						padding-top: 2%;
+						padding-bottom: 20px;
+					}
+				</style>
+
+            <p><t t-esc="datetime.datetime.now().strftime('%B %d, %Y')" /></p>
+				<br />
+
+                <span t-field="o.partner_id"/>,<br/>
+                <span t-field="o.partner_id.street"/>,<span t-field="o.partner_id.street2"/>,<br/>
+                <span t-field="o.partner_id.city"/>,<span t-field="o.partner_id.state_id.name"/>,<br/>
+                <span t-field="o.partner_id.country_id.name"/> <br/>
+
+        <p align="justify">
+            Dear Sir/Madam,
+        </p>
+
+        <h4 style="text-align: center;"><strong><u>PROVISIONAL LETTER OF ALLOCATION OF A <span t-esc="o.order_line[0].product_id.name.upper()"/> AT <span t-esc="o.order_line[0].product_id.categ_id.project_site.name"/>, BEHIND MD YUSUF ABUBAKAR MOBILE POLICE BARRACKS, ALONG KUBWA EXPRESS WAY, ABUJA</u></strong></h4>
+
+        <p>Further to your application, we are pleased to inform you that House No <strong><span t-esc="o.order_line[0].product_id.name.upper()"/></strong> at Brains and Hammers Bungalow City, along Kubuwa Express Way,Abuja has been allocated to you.</p>
+         
+          <p>We have offered you a structured payment plan (<strong><span t-esc="o.payment_term_id.name"/></strong> ) spread over a period of 12 months for a total sale price of: - &#8358;<strong><span t-esc="'{0:,}'.format(int(o.amount_total))"/></strong>  Naira only. exclusive of taxes and VAT.</p>
+         
+        <p>Kindly quote this unique reference number <strong><span t-esc="o.name"/></strong> in every transaction pertaining this offer on house <span t-esc="o.order_line[0].product_id.name.upper()"/>.</p>
+
+        <p><strong>TERMS AND CONDITIONS OF OFFER</strong></p>
+
+          <ol style="padding-left: 70px;">
+
+            <t t-if="o.payment_type == 'installment'">
+
+  						<li>
+  							Accepting and returning this offer letter within one week from the offer date with the evidence of payment of an initial deposit of 10% of the sale price &#8358;<strong><span t-esc="'{0:,}'.format(int(o.amount_total))"/></strong> into the accounts of brains and hammers affordable limited,fidelity account number, or jaiz bank
+                Please note that you must quote your reference number on your deposit slip for all payments to be made (<strong><span t-esc="o.name"/></strong>).
+  						</li>
+
+  						<!-- <t t-foreach="o.payment_term_id.line_ids[1:-1]" t-as="payment_line">
+  							<li>
+  							Payment of the sum of &#8358;<strong><span t-esc="'{0:,}'.format(int(o.amount_total))"/></strong> being additional <span t-esc="float(payment_line.amount_to_pay/o.offer_price * 100)" />% of the purchase price <span t-esc="int(payment_line.interval.split(' ')[0])"/> days (<span t-esc="payment.interval.split(' ')[0]"/>) from the date of the payment stated under clause <span t-esc="payment_index + 1" /> of this provisional offer.
+  							</li>
+  						</t> -->
+			      </t>
+
+
+                    <t t-if="o.payment_type == 'installment'">
+                    	
+
+                                    <li>Accepting and returning this Provisional Offer Letter (within one week) from the date of issue with the evidence of initial deposit of 10% payment for ₦<strong><span t-esc="'{0:,}'.format(int(o.amount_total))"/></strong> representing <span t-esc="(o.payment_term_id.line_ids[0].value_amount*o.amount_total /100)"/>% of the purchase price into the account of Brains and Hammers Limited, with the following details:
+
+                                        <p><b>Account Name: Brains &amp; Hammers Ltd Iganmu Revenue Account <!--<span t-esc="o.bank_account.name"/>--></b></p>
+                                        <p><b>Bank: <span t-esc="o.bank_account.bank_id.name"/></b> </p>
+                                        <p> <b>Account Number: <span t-esc="o.bank_account.bank_acc_number"/></b></p>
+                                        Please note that you must quote your reference number on your deposit slip for all payments to be made (<strong><span t-esc="o.name"/></strong>).
+  					 
+                                    </li>
+                                    <!-- <t t-foreach="o.payment_term_id" t-as="payment">
+                                        <li>
+                                        Payment of the sum representing (<span t-esc="int(payment.line_ids[0].value_amount*o.amount_total /100)"/>%) of the purchase price <span t-esc="payment.line_ids[0].days"/> days from the offer date.
+
+                                        </li>
+                                    </t> -->
+                          </t>
+
+  					<t t-if="o.payment_type == 'outright'">
+                                <li>
+                                Accepting and returning this offer letter with the evidence of full payment of the sum of ₦<strong><span t-esc="'{0:,}'.format(int(o.amount_total))"/></strong> being full payment of the purchase price.
+                                </li>
+            </t>
+
+         
+
+              <li>Notwithstanding the provisions of Clause 1 of this agreement regulating the terms of payment for the housing unit provisionally allocated to the Allotee both the Vendor and Allotee agree that the commencement date which is the date for the commencement of construction works of the Allotees housing unit shall be the date as communicated by the Vendor to the allotee and where there is a variation of such commencement date then it shall be any further date as  communicated by the Vendor to the Allotee.  </li>
+
+<li>Notwithstanding the provisions of Clauses 1 and 2 of this agreement regulating the terms of payment and commencement date of construction for the housing unit provisionally allocated to the Allotee both the Vendor and Allotee agree that the duration construction time of this agreement shall be such period as communicated by the Vendor to the Allotee and where there is a variation of the duration construction time any further date as communicated by the Vendor to the Allotee</li>
+
+<li> Notwithstanding the provisions of Clauses 1 and 2 of this agreement regulating the terms of payment and construction commencement date for the housing unit provisionally allocated to the Allotee both the Vendor and Allotee agree that the completion date shall be the date as communicated by the Vendor to the Allotee and where there is a variation and or extension of the completion time as communicated by the Vendor any further date as communicated by the Vendor to the Allotee. </li>
+
+<li> Each Allotee shall in making payment to the Vendors account or any payment with respect to any housing unit allotted to them include in their deposit slips their name(s) and if a corporate entity their corporate name along with the provisional house number, 0082647384 reference number and the specific housing estate of the housing unit they are paying for. </li>
+<li>This allocation letter is provisional and only upon the receipt of disbursement of mortgage proceeds in completion of the full amount from the Allotees mortgage bank fulfilling the terms and conditions contained herein shall the Allotee  be issued by the Vendor with a Final letter of allocation and thereafter the Certificate of Occupancy. The Provisional letter of allocation is not title to the housing unit and cannot be used by any Allotee to sell, assign, transfer any interest to a third party in respect of any housing unit(s). </li>
+
+<li>The vendor shall give a reasonable time of 12 (twelve months) to allow the allotee to receive the proceeds of mortgage loan to complete the payment for the housing unit. Where the allotee is not able to receive his/her mortgage loan proceeds from their bankers, the Vendor is at liberty to revert to its traditional payment plan terms and the allotee is liable to comply with these payment terms. Where the allottee still fails to complete his/her payment after reverting the allottee to traditional payment plan, such an allottee shall risk being revoked and refunded his/her monies less 10% as administrative charges. </li>
+
+<li>Each Allotee shall where they have given instructions to any agent or representative to make any payments on their behalf shall ensure compliance by any such agent or representative with the terms of this agreement. </li>
+
+<li>Where any Allotee has made any payment in furtherance to the terms of this provisional agreement such an Allotee shall not in any circumstances whatsoever be entitled to a refund of such deposits made pursuant to this agreement save for where the provisional allocation is revoked by the vendor for failure by the Allotee to complete the payments as and when due under this agreement;  provided as always that the Vendor shall refund to the Allotee the deposit made for the housing unit less ten percent (10%) of the full purchase price deducted by the Vendor as administrative fees upon the purchase and full payment for the said housing unit by a subsequent Allotee. </li>
+
+<li>By the terms of this provisional letter of allocation the Vendor holds itself out as possessing the requisite technical and professional skill and competence  to execute the terms of this agreement while the Allotee holds itself out as having the immediate source of funds to pay for the execution of the terms of this agreement as such no Allotee shall determine this agreement on the basis that it does not have a sufficiency of funds to pay or continue to pay for the commencement, continuation and completion of the execution of the terms of this agreement  or make the payments as agreed by the Vendor and the Allotee under this Agreement. </li>
+
+<li>The Vendor shall be under obligation to deliver on the terms and conditions of this agreement to wit the delivery of the housing unit(s) due for which payment has been made by the Allotee under the terms of this agreement and shall not be under any obligation whatsoever for the refund of monies paid for the commencement, continuance and completion of the housing unit due under the terms of this agreement (save for as provided for in this agreement) and both the Vendor and the Allotee further agree that the Vendors obligation to the Allotee under the terms of this agreement shall only be with respect to the delivery of any such housing unit(s) as agreed under the terms of this agreement and that the Allotee shall not be entitled to any monetary refund at any stage of the execution of works with respect to the housing unit(s) except as under the circumstances stated in this agreement. </li>
+
+<li>Every Allotee shall bear the cost of processing their individual certificate of occupancy in respect of the individual housing unit  at a price to be determined by the statutory authorities of the department of Mass Housing office at the completion of the whole estate which cost shall be communicated to each Allotee by the department of Mass Hosing through the Vendor at the completion of their housing unit. </li>
+
+<li>The Vendor shall initially issue a Final letter of allocation and a Certificate Of Occupancy to each Allotee after( on such a date as agreed and communicated by the Vendor to the Allotee) the completion of the housing units types by the Vendor and shall also procure for the Allotee the statutory forms (at the fee charged for such forms by statutory authorities) required for the processing by each Allotee of its individual Certificate of Occupancy from the department of Mass housing but all matters connected with statutory payments to be made to the department of Mass housing with respect to the issuance of the individual Certificate of Occupancy by the department of Mass housing to the individual Allotee shall be as between the Allotee and the Department of Mass Housing .  </li>
+
+<li>The cost of perfection of the title shall be borne by the Allotee. </li>
+
+<li>Documentation and Legal Fee: The Allotee shall pay 1% of the value of the purchased property as documentation and Legal fees. Payment shall be by bankers cheque or draft in the name of <b>Abubakar Sheidu &amp; co.</b> which shall be made at the payment of the third instalment. </li>
+
+<li>By Finished, the Vendor covenants to construct block works standing up with roofing, external plastering, external painting, external screeding, external doors (exit and entrance), external windows, internal finishing (POP, walls, floors, electrical fittings, mechanical fittings,)  interlocking, road works drainage, external water reticulators, central sewage plant, general underground/overhead water works, external estates overhead dimension cabling,  However, there shall be no internal finishing whether tiling plastering, painting or electrical &amp; mechanical fittings. The cost of leasing and maintaining ( that is maintenance based on wear and tear and not as occasioned by negligence of any residence of the Estate) by the Allotees of infrastructural facilities provided and owned by the Vendor within the Estate such as transformers, ring main units, the perimeter fence, entry gates, the   boreholes, water pumping machines (both surface and submersible) road reconstruction, reconstruction of drainages, culverts, purchase and replacement of damaged or destroyed street lights, replacement of armoured cables, replacement of the electric fence, replacement of water reservoir tank(s)purchase of new feeder pillars, replacement of low voltage panels, replacement of high voltage panels, reconstruction of security house, replacement of  Abuja Electrical Distribution Company (AEDC) skipper or maximum demand meters, water treatment plant(s), central storage bins, diesel storage tank(s), lightening protection system(s), synchronizing panels, street signage(s) and closed circuit security systems (CCTV) shall be borne by all Allotees by the payment of an infrastructure leasing charge annually in the amount as provided for in the Final letter of allocation.) </li>
+
+<li>The Vendor shall directly or through its nominated agents undertake the provision of the Facility Management Services within the Estate including but not limited to the following; provision of security personnel, provision of external cleaners, generator servicing, external electrical equipment servicing, gardening, cleaning and horticulture works, fumigation, plumbing works, regular servicing of fire-fighting equipment, management and disposal of waste disposal units, keeping of the common grounds, pavements, street lightings, roads and other facilities and the cost of all such services shall be subject to periodic review from time to time as determined by the Vendor in conjunction with the Estate residents Association when inaugurated. </li>
+
+<li>The Capital Charge is now to be referred to as the Infrastructural Leasing Charge and any prior reference to the term capital charge shall mean infrastructure leasing charge with regard to any prior documentation issued by the Vendor to any Allotee. </li>
+
+<li>The cost of leasing and maintaining ( that is maintenance based on wear and tear and not as occasioned by negligence of any residence of the Estate) by the Allotees of infrastructural facilities provided and owned by the Vendor within the Estate such as transformers, ring main units, the perimeter fence, entry gates, the   boreholes, water pumping machines (both surface and submersible) road reconstruction, reconstruction of drainages, culverts, purchase and replacement of damaged or destroyed street lights, replacement of armoured cables, replacement of the electric fence, replacement of water reservoir tank(s)purchase of new feeder pillars, replacement of low voltage panels, replacement of high voltage panels, reconstruction of security house, replacement of  Abuja Electrical Distribution Company (AEDC) skipper or maximum demand meters, water treatment plant(s), central storage bins, diesel storage tank(s), lightening protection system(s), synchronizing panels, street signage(s) and closed circuit security systems (CCTV) shall be borne by all Allotees by the payment of an infrastructure leasing charge annually in the amount as provided for in the Final letter of allocation. </li>
+
+<li>The Service charge shall be paid in advance by each Allotee and the amount shall be as provided for in the hand-over letter to be issued by the Vendor to each Allotee. </li>
+
+<li>The Service charge shall be subject to periodic review from time to time as determined by the Vendor and the Estate Residents Association when inaugurated. </li>
+
+<li>The Infrastructure leasing charge shall be paid in advance by each Allotee and the amount shall be as provided for in the hand-over letter to be issued by the Vendor to each Allotee. </li>
+
+<li>The Infrastructure leasing charge shall be subject to periodic review from time to time as determined by the Vendor. </li>
+
+<li>The Service charge and the Infrastructure leasing charge must be paid before the allotee takes possession of the allotted unit and every year thereafter. </li>
+
+<li>The Service charge and the Infrastructure leasing charge shall be paid at the same time by the Allotee to the account designated by the Vendor or to the Vendors authorized representative and each Allotee must state in their payment slips the number of their housing unit and the specific zone of the Estate they have been allotted a housing unit. </li>
+
+<li>Failure to effect payment of the Service charge and the Infrastructure leasing charge shall result in the withdrawal of common facility services from the defaulting Allotee for the period of the default; this is without prejudice to any other action that the Vendor may take to against the Allotee. </li>
+
+<li>Each Allotee shall pay the ground rent, tenement rates, taxes, assessments, impositions, duties, levies and other outgoings of an annual, statutory and recurrent nature which are now and may be charged, levied, assessed or imposed upon the premises by the Federal Capital Territory or the local government authorities during the term to be created or any such terms as contained in its Final letter of allocation, Deed of Sublease agreement and any increment in respect of any such charges. </li>
+
+<li>The property is offered in the condition and state it is and on taking possession the Allotee must expressly accept that the vendor is under no obligation to you except for such fittings and fixtures that the company has specifically covenanted to provide in the property and in particular the vendor shall not be responsible for the provision of kitchenette, , wardrobes, water heaters, air-conditioning units, burglary proofs, external water storage tanks, water metres, water pumps, electrical metres, Picket fence, car port in any of the housing units; the Vendor shall also not lay interlocking blocks or tiles or cement work at the backyard of the housing unit. </li>
+
+<li>The property shall be used for residential purposes only. </li>
+
+<li>The keeping of pets and or domestic animals is expressly prohibited. </li>
+
+<li>That no alteration, modification addition will be made on the allotted unit without the approval of the Vendor. </li>
+
+<li>The Allotee shall utilize the services of the Vendors electricians and plumbers resident in the Estate in the course of repair or replacement of plumbing or electrical appliances in their respective allotted units to prevent damage of the common electrical and plumbing devices. </li>
+
+<li>The Allotee shall be at liberty to install alternative power generating devices in its allotted unit such as solar panels, inverters (whether electrical or manual) provided that the Allotee shall not install a generator in any housing unit whether electrical or mechanical. </li>
+
+<li>The Vendor has provided generators within the Estate for the supply of electricity to the Allotee(s) where there is no supply of electricity by the Abuja Electrical Distribution Company (AEDC). </li>
+
+<li>Payment for electricity supply within the Estate by means of generators or other alternative sources provided by the Vendor shall be by prepaid token purchased by each Allotee from the office of the estate facility manager. </li>
+
+<li>Each Allotee shall purchase directly from the Abuja Electricity Distribution Company (AEDC) for its electricity consumption and billing an electric meter for their individual housing unit and shall pay directly for electricity usage by such means as agreed with the AEDC. </li>
+
+<li>The prepaid token purchased from the office of the Facility Management office within the Estate caters only for electricity supplied by the Vendor through the installed generators or alternative generating sources. </li>
+
+<li>The Vendor has provided within the Estate High End Transformers, HT and LV Panels for the smooth running of electricity services within the Estate. </li>
+
+<li>All Allotees are to procure from the Facility Management office within the Estate an individual check meter for their housing unit; This is compulsory for each housing unit, these individual housing unit check metre is to regulate the energy consumption of each housing unit and upon purchase of the individual housing unit check metre it becomes the property of Allotee and each occupant is responsible for its replacement upon same becoming defective. </li>
+
+<li>The electricity tariff structure instituted by the Vendor for the Estate for the proper function of the installed generators is based on the aggregation of the Estate energy requirement for the Estate where there is no provision of electricity to the Estate by the Abuja Electrical Distribution Company (AEDC). </li>
+
+<li>The Estate electricity tariff which is compulsory for all Allotees also captures the diesel consumption requirements of the Estate and maintenance of the generators provided that and it is hereby agreed by the Allotee that the Estate rate shall be subject to review from time to time by the Vendor. </li>
+
+<li>The Vendor shall maintain in the Estate a regular electricity supply regime as provided by the grid within the Estate by an integration of both electricity supply by the Abuja Electricity Distribution Company(AEDC) with the installed generators on the Estate which shall be switched on at pre-agreed periods where there is no supply from the national grid provided that every Allotee who purchases a housing unit in the Estate by this agreement also subscribes to the electricity supply regime and hereby covenants not to directly or indirectly subvert electricity supply regime. However, no Allotee shall be allowed to use generator within the Estate but may be allowed to use renewable energy sources to generate alternate electricity where there is no estate-wide supply by facility management. </li>
+
+<li>The Vendor shall continue to reserve the right to revoke the provisional allocation of any Allotee where the activities of any such Allotee is inimical to the Vendor achieving the Twenty four (24) hours seven days a week uninterrupted electricity supply regime within the Estate or where such Allotee engages in any activity of a criminal nature which is punishable under the laws of the Federal Republic of Nigeria. </li>
+
+<li>The Vendor reserves the right to revoke the provisional allocation of any Allotee where such Allotee agitates for the civil disturbance within the Estate or disturbs the peace of the office of the Vendor and or the Facility Management office within the Estate. </li>
+
+<li>The Vendor reserves the right to revoke the provisional allocation of any Allotee where such an Allotees action or inaction amounts to a material breach of the terms of this agreement provided as always and it is hereby agreed by the Vendor and the Allotee that under the circumstances stated in this agreement the Vendor shall issue a revocation notice to any such Allotee whether in occupation of the allotted housing unit or not and thereafter issue the said Allotee a bank draft in the sum equal to the Allotees purchase price( less the 10% deducted by the Vendor as administrative fees of the housing unit) any such Allotee shall have one month or such period as granted by the Vendor to move out of the Estate after which period it shall be deemed a trespasser in the Estate and liable to be evicted through lawful means from the housing unit. </li>
+
+<li>	<ul>where allotte has made stage payment (s) and then decides unilaterally to discontinue its subscription to the allotted housing unit and seeks for refund of monies paid, the vendor shall refund the sums paid less 10% for administrative charges, after the sale of the said unit to a new allotte/subscriber. </ul> </li>
+
+<li>The provision of portable water in the Estate by the Federal Capital Territory water board shall be complemented by the Vendor providing boreholes within the Estate and the payment for the provision of water to each housing unit shall be by a pre-paid payment system. </li>
+
+<li>The pre-paid water metres for each housing unit shall be paid for by each Allotee before the date of hand over of each housing unit to each allotee, which payment shall be made to the Vendor. </li>
+
+<li>The Vendor shall operate a prepaid water payment system in each housing unit and each Allotee shall pay for water supply to their respective housing unit by the purchase of prepaid token from the office of the Estate Facility Management office within the Estate. </li>
+
+<li>The prepaid token for the prepaid water metres for each housing unit purchased from the Facility Management office within the Estate shall cover the cost of water supply by both the water board authority as well as water supplied by the boreholes provided by the Vendor. </li>
+
+<li>The use of external electricians, plumbers or other artisans is expressly prohibited in the Estate save for carpenters and satellite dish technicians to prevent damage of the central electrical and plumbing devices within the Estate. </li>
+
+<li>There shall be routine stop and searches conducted on persons going out and coming into the Estate. </li>
+
+<li>For free flow of vehicular and human traffic within the Estate, double parking, parking on the streets, embankments, pavements and adjourning pavements within the Estate are hereby expressly prohibited. </li>
+
+<li>The number of domestic and or household staff of each allotted housing unit shall be forwarded by each Allotee to the Facility Management office within the Estate for the purpose of easy identification of persons residing on the Estate. </li>
+
+<li>Domestic staff of each housing unit shall be issued with identification cards by the Vendor or Allotee (or as the parties may further agree) for easy identification while each Allotee is enjoined to notify the Facility Management office within the Estate of the termination of the employment of any domestic staff and retrieve such identification cards issued to any such of its staff. </li>
+
+<li>The Allotee bears a vicarious liability for any act of misdemeanor of any person(s) residing in their housing unit where the terms of this agreement are not complied with by the Allotee within a reasonable time. </li>
+
+<li>That in accordance with the statutorily approved building plans no Allotee shall erect any fence on its allotted unit. </li>
+
+<li>The dredging or drilling of boreholes on allotted units is prohibited. </li>
+
+<li>The erection of security house on each allotted unit is prohibited. </li>
+
+<li>The Allotee hereby covenants that it shall make all payments as stated in this provisional letter of allocation as and when due under this offer. </li>
+
+<li>The Allotee shall not defer the commencement date for computation of Service charges and Infrastructure leasing charges in respect of their allotted housing unit whether or not the allotted housing unit is occupied and whether or not the Allotee or its tenants intends to reside in the allotted unit or not. </li>
+
+<li>No Allotee shall refuse to pay to the Vendor or the Facility Management office within the Estate Service charge and Infrastructure leasing charge and other charges listed in this agreement due in respect of their allotted housing unit where such allotted housing unit is ready for hand over to the allotee on the ground that such allotee does not desire to reside in the said allotted unit or desires to put up same for sale, lease or let to third parties. </li>
+
+<li>The Vendor hereby warranties that the housing units constructed shall be fit for habitation by the Allotees. </li>
+
+<li>The Vendor and the Allotee agree that Facility Management office within the Estate shall manage the Estate as representatives of the Vendor </li>
+
+<li>Upon the completion of the housing unit the Allotee shall be written( by delivered letters or e-mail) or communicated with by telephone by the Vendor and or Facility Management office within the Estate informing the Allotee of the completion of the housing unit and a date agreed to by both the Facility Management office within the Estate and the Allotee for the inspection of the housing unit by the Allotee and the Facility Management office within the Estate and on the agreed date the Allotee shall carry out the said inspection with the Facility Management office within the Estate and upon the completion of the inspection the Facility Management office within the Estate shall check in the Allotee and handed over possession of the housing unit to the Allotee. </li>
+
+<li>The Estate Facility Management office personnel and the Allotee shall jointly sign off on the Check- in Form(s) before handing over of the housing unit to the Allotee. </li>
+
+<li>No Allotee shall be allowed entry into, gain access to or enter into physical possession of any housing unit in the Estate without going through the inspection, Checking -in and handing over process with the Facility Management Office within the Estate and where any Allotee has contravened this clause such Allotee shall be deemed to be in material breach of the terms of this agreement and will be ejected by the Facility Management office within the Estate from the housing unit until such a date as decided by the Facility Management office within the Estate and such date communicated to the said Allotee and the Inspection, Checking- in and handover process is carried out as between the Estate Facility Management office and the Allotee. </li>
+
+<li>The Allotee shall assume legal liability for running and maintaining its allotted housing unit once the housing unit has been handed over to the Allotee by the Facility Management office. </li>
+
+<li>The Inspection, Check- in and Hand Over process of the housing unit shall be as between the Facility Management office within the Estate and the Allotee only.  </li>
+
+<li>Where the Vendor has written the Allotee of any housing unit informing such Allotee of the completion of the housing unit and requesting to hand over to the Allotee the said allotted housing unit and has requested the payment of the service charge, infrastructure leasing charge and legal fee in respect of such housing unit and the Allotee refuses, neglects or fails to pay for the said service charges, infrastructural leasing charges and legal fees and these monies remain unremitted and unpaid for a period of Three(3) months after the said letter, the Vendor reserves the right to rescind the sale to the Allotee and revoke the allocation. </li>
+
+<li>Where any housing unit is revoked by the Vendor subject to the preceding clause the Vendor shall refund the deposit paid by the former Allotee of any such housing unit less Ten percent (10%) of the full deposit deducted by the Vendor as administrative fees when a buyer has been found by the Vendor and the said buyer has made full payment for the housing unit. </li>
+
+<li>Where any of the Allotees stage payment(s) has become due under clauses under the terms of this provisional offer and the Allotee has refused, neglected or failed to make the said stage payment(s) to the Vendor, the Vendor shall at its sole discretion amend the terms and conditions of the provisional letter of allocation to extend the completion date by a minimum extension period of six(6) months or such further or lesser period within the traditional payment plans of 12 months, 18 months or 24 months as shall be determined or be moved to subsequent phases of the estate development by the Vendor and communicated to the Allotee; The Allotee hereby covenants by the terms of this agreement to accept the extension of the completion date of its housing unit. </li>
+
+<li>Where an Allotees stage payment become due under the terms of this agreement and the Allotee has consistently and continuously defaulted in making the stage payments as and when due the Vendor shall in its sole discretion relocate the Allotee from that phase of housing unit development within the Estate to the next phase of housing unit development within the Estate being carried on by the Vendor and shall promptly notify the Allotee of their relocation; The Allotee hereby covenants by the terms of this agreement to accept its relocation to the next phase of housing unit development within the Estate by the Vendor under the conditions as above stated. </li>
+
+<li> All allocations of housing units and housing unit numbers within the Estate are provisional until all payments as contained in the provisional letter of allocation and Final letter of allocation are made by the Allotee. </li>
+
+<li>All allocations of housing unit(s) within the Estate are provisional and until all housing units are completed, inspected, the Allotee Checked- in and handed over the housing unit by the Estate Facility Management office to the Allotee; the Vendor reserves the right at all times to re-allocate any housing unit where any such housing unit is yet to be completed, inspected, and handed over by the Estate Facility Management office personnel to any Allotee provided that and it is hereby covenanted by the Vendor that in any such circumstance provision will be made for any Allotee affected by any such re-allocation by the Vendor such Allotee being allocated a housing unit of the same type in form and specification, and duly notified of the reallocation prior. </li>
+
+<li>Both the Vendor and Allotee agree that no right of action against the Vendor exists or  is maintainable by any Allotee against the Vendor for any re-allocation of housing units by the Vendor in the Estate as no Allotee has any proprietary or ownership rights over any housing unit until  the Estate Facility Management office notifies the Allotee in writing and a date is agreed as between the Facility Management Office and the Allotee for a joint inspection of the housing unit, Checking- in of the Allotee and hand over of the housing unit to the Allotee by the Facility Management office within the Estate. </li>
+
+<li>The Allotee shall obtain all information relating to Sales, Vendor construction sites, general information, allocations, updates on construction matters and vendors products from the Vendors customers service department. </li>
+
+<li>No Allotee shall transfer, donate by way of a Power of Attorney, Deed of Sublease, Certificate of Occupancy, sell, assign, convey or otherwise deal with any housing unit allotted to it until any such Allotee has completed payment of all fees due (which fees include the payment of the cost price, service charges, infrastructure leasing charges and legal fees) in respect of the said housing unit. </li>
+
+<li>No Allotee has or shall exercise right of title over any housing unit or proprietary rights over any housing unit provisionally allotted to it until all payments as contained in their provisional letter of offer and Final letter of offer have been made to the Vendor and or the Facility Management office within the Estate as may be required. </li>
+
+<li>Where any Allotee who having failed to complete payment for any housing unit allotted to them and without notice and approval of the Vendor purports to transfer, sell, assign, convey or otherwise deal with any such housing unit with any third party, such an Allotee shall have their provisional offer revoked immediately by the Vendor and shall be refunded their deposit less Ten (10%) of the full purchase price of any such housing unit which shall be deducted as administrative fees. </li>
+
+<li>An Allotee who having satisfied all the terms and conditions of sale including the payment to the Vendor of the full purchase price, service charges, infrastructure leasing charges and legal fees and all the fees as stated in this agreement, shall where desirous of effecting a transfer, conveyance, sale, assignment of any such housing unit to a third party, inform the vendor in writing upon which the vendor shall prepare an offer letter, final allocation letter and a Deed of Sublease Agreement in the name of the new allotee. </li>
+
+<li>Further to the terms of this agreement, the subsisting agreement shall be the Deed of Sublease as between the Vendor and the new Allotee. </li>
+
+<li>Further to the terms of this agreement, the preceding sale agreement and Deed of Sublease as between the Vendor and the preceding Allotee shall be voided and kept in the custody of the Vendor. </li>
+
+<li>Further to the foregoing clauses both the preceding Allotee and the new Allotee of the housing unit to be assigned, conveyed, transferred or sold shall provide documentary evidence to the Vendor evidencing the transaction between them; which evidence shall include Deed of Sale and evidence of payment for the housing unit. The Vendor shall keep a copy of the aforementioned documents. </li>
+
+<li>The preceding Allotee shall take out an indemnity agreement in favour of the Vendor in the amount contained in the new sale agreement with the new Allotee. </li>
+
+<li>Where an allotee wishes to change his or her name in respect of the title document he or she acquires or will acquire as a result of purchasing any unit from bungalow city, such an allotte shall bear the cost of said change being 1% of the offer price of the unit payable in the name of <b>Abubakar Sheidu &amp; co.</b> which payment must be in Bank draft. </li>
+
+<li>Any new sale agreement as between the Vendor and the new Allotee shall be subject to a Two percent (2%) resale fee charge payable to an account as shall be communicated by the vendor.. </li>
+
+<li>The Vendor shall not be liable to the Allotee for any delay in completing, commissioning and delivering the allotted housing units on the agreed date of completion if such delay is due to Force Majeure. For the purposes of this offer <b><i>FORCE MAJEURE</i></b>s shall mean any act, event, or condition beyond reasonable control and without the fault or negligence of the Vendor and or its agents including; acts of God, adverse acts or legislation by Government war, sabotage, riot, insurrection, civil commotion, political impasse, national emergency, weather cyclone, earthquake, landslide and explosion or such like acts). </li>
+
+<li>The Performance of the terms of this offer shall be suspended for the duration of the disability resulting from the Force Majeure and neither the Vendor nor the Allotee shall be liable for delay or failure in the performance of any of the terms and conditions of this offer for such duration, provided that the Vendor shall promptly give notice of the occurrence of such Force Majeure to the Allotee and agree with the Allotee  as to the time, which the Vendor shall, after the cessation of the Force Majeure, discharge its obligations under this agreement. </li>
+
+<li>The Vendor warranties that all materials to be used for the construction of the housing units shall be of good quality and all the personnel to be engaged for the execution of the works shall be sufficiently skilled and competent and further warrants that the roofing and structures shall be without defects, which may be due to the quality of materials used or the competence of the workers engaged, for a period of six (6) months after completion of the housing unit. </li>
+
+<li>Where the Vendor is unable to complete and deliver the housing unit by the completion date it shall give notice to the Allotee and shall give the Allotee a specific time within which it shall complete and handover the housing unit to the Allotee. </li>
+
+<li>The completion date refers to the date for the completion of the construction of the housing unit of the Allotee and does not include the completion of construction works on the commercial areas, green areas and other facilities within the Estate. </li>
+
+<li>No Allotee who has been handed over their housing unit and is a resident in the Estate shall hold the Vendor liable for any continuing or on -going development or construction work in the Estate or the noise level any such on -going development construction work in the Estate. </li>
+
+<li> Further to provisions of this offer the Vendor reserves the right to revoke any allotted unit:-</li>
+
+<ul class="abc">
+<li>   Where the payment terms are not strictly adhered to </li>
+<li>   Where the Allotee consistently refuses to make stage payments as and when due. </li>
+
+<li> Where the Allotee refuses, neglects or fails to make stage payments as at when due despite repeated demands via letters or telephone, fax or email correspondence. </li>
+
+<li>   Where the failure of any Allotee to make timely payment is in conflict with the collective interest of other Allotees and is inimical to the timely completion of the housing units.   </li></ul>
+
+<li>The Provisional letter of allocation, the Final letter of allocation and the Deed of sublease agreement to be executed by the Vendor and the Allotee with regard to any housing unit purchased in the Estate shall be read and interpreted as one indivisible continuing agreement as between the Allotee and the Vendor and none of the aforementioned agreements shall be interpreted as independent of the other particularly with regard to the clauses dealing with the issue of ownership of infrastructural facilities in the Estate which title is vested in the Vendor at all times. </li>
+
+<li>Where any material clause relating to the aforementioned proprietary rights of the Vendor over all infrastructural facilities in the Estate is inadvertently omitted in the Deed of Sublease but contained in the Provisional letter of allocation and or in the Final letter of allocation such clause(s) shall be deemed to and have the same legal effect of forming  part of the clauses of the Deed of Sublease as if same were specifically stated in the Deed of Sublease agreement executed by the Vendor and the Allotee. </li>
+
+<li>Where any clause is contained in the Provisional letter of allocation, Final letter of allocation or the Deed of Sublease which purports to confer any proprietary right over any of the infrastructural facilities in the Estate on the Allotee(s) both the Vendor and the Allotee hereby agree that any such clause shall be void. </li>
+
+<li>The Alloteess proprietary rights within the Estate shall be limited to the housing unit bought by each respective Allotee ONLY and more particularly described by the beacons delineating each housing unit as contained in the schedule to the Deed of sublease agreement to be executed by the vendor with each Allotee. </li>
+
+<li>The Vendor has ownership of and proprietary rights over all assets and infrastructure within the Estate (save for the housing units sold to the Allotees) which assets and infrastructure include but are not limited to the generators, transformers, ring main units,  boreholes, water pumping machines (both surface and submersible),reservoir tanks, feeder pillars, low and high voltage panels, electric fence, street lights, fire hydrants, the security house, the club house, swimming pool, the Facility Management office, water treatment plants, diesel storage tanks, synchronizing panels, the  closed circuit security systems (CCTV)  within the Estate as well as the commercial areas and green areas which right has not been derogated by the sale of housing units to Allotees within the Estate. </li>
+
+<li>The Vendor shall manage the Estate exclusively utilizing its aforementioned assets and infrastructure for the use of all Allotees within the Estate provided that and it is hereby agreed by the Vendor and the Allotee(s) that the application of the infrastructural facilities and assets for the common use of all (Vendor and Allotees by the Facility Management office within the Estate of the Vendor) hereinafter called the exclusive management agreement shall not be interpreted as common ownership of the assets and Infrastructure in the Estate. </li>
+<li>The Exclusive management of the Estate by the Vendor by the Facility Management office Estate is a continuing binding agreement as between the Vendor and the Allotees as well as Allotees successors- in title, personal representatives and assigns, which agreement each Allotee hereby covenants by this agreement shall continue in force and automatically renew for successive terms of Twenty- five (25) years each</li>
+
+<li>It is hereby agreed by both the Vendor and the Allotee(s) that the operation of the exclusive property management agreement of the Estate as between the Vendor and all the Allotee(s) within the Estate does not in any way whatsoever confer on the Allotees any beneficial ownership of any of the assets and infrastructure mentioned in this agreement. </li>
+
+<li>It is hereby agreed by both the Vendor and  each Allotee  that the Vendors assets stated in this agreement are not owned jointly with any Allotee either individually or collectively and where Allotees form an association collectively to constitute a body corporate, they shall not individually or collectively lay any legal right or claim of ownership of same under any circumstances whatsoever and any such right shall not be imputed by reason of the payment of Service Charge and Infrastructure leasing  charge by each Allotee. </li>
+
+<li>The terms and conditions of this agreement are binding on all Allotees within the Estate, their successors-in- title, personal representatives or assigns and no Allotee shall have the right under any circumstances whatsoever to elect not to be bound by the terms and conditions contained herein. </li>
+
+<li>No tenant of any Allotee shall have the right to exercise any of the Allotees rights under this agreement and in particular shall not have the right to maintain a cause of action against the Vendor with regard to the management of the Estate as by the terms of this agreement both Vendor and Allotee agree that no contractual obligation or privity exists between the Vendor and an Allotees tenant. </li>
+
+<li>Notwithstanding the foregoing provisions contained in this agreement the Vendor and each Allotee hereby agree that the Vendor shall at all times continue to reserve the right to amend, alter, modify or change any or all clauses in this agreement relating to the post completion, handing over of housing units to Allotee(s), Facility Management of the Estate and all such other related ancillary matters on such terms and conditions as the Vendor shall indicate in the final letter of allocation to be issued to each Allotee and any such modification, alteration or amendment of the terms and conditions of this provisional letter of allocation as indicated in the Final letter of allocation and the Deed of Sublease agreement shall be binding on each Allotee as if any such alterations, amendments or modification were terms and conditions contained in this provisional letter of allocation. </li>
+
+ </ol>
+         <br/>
+        <p>If the above terms and conditions are acceptable to you, please indicate by signing in the space provided in our acceptance form.</p>
+         <p align="justify">
+                  Thank you,
+				</p>
+                <p align="justify">
+                  Yours Faithfully
+				</p>
+
+       <tr><td style="padding-top:4%;">
+             <img src="https://imgur.com/FYvOMgW.jpg" style="max-height: 150px;" />
+
+            </td></tr>
+        <p align="justify">
+            <strong>AUTHORIZED SIGNATORY</strong>
+
+        </p>
+        <tr><td style="padding-top:2%;">
+                            For: Brains &amp; Hammers Limited
+		</td></tr>
+
+        <p align="justify">
+            <u>ACCEPTED BY OFFEREE</u>
+            <u></u>
+        </p>
+        <p align="justify">
+            NAME:........
+        </p>
+        <p align="justify">
+            SIGNATURE....
+        </p>
+        <p align="justify">
+            DATE:.....
+        </p>
+        <p align="justify">
+            TELEPHONE NUMBER..
+        </p>
+				<br />
+        <p align="justify">
+            <u></u>
+        </p>
+        <p align="justify">
+            <u>WITNESSED BY:</u>
+            <u></u>
+        </p>
+        <p align="justify">
+            NAME:....
+        </p>
+        <p align="justify">
+            ADDRESS:...
+        </p>
+        <p align="justify">
+            SIGNATURE:.
+        </p>
+        <p align="justify">
+            TELEPHONE NUMBER.
+        </p>
+
+      </div>
+      </t>
+    </template>
+    <!--<template id="galadimawa_carcas_offer_letter_report">
+		<t t-call="report.offer_letter">
+			<t t-foreach="doc_ids" t-as="doc_id">
+				<t t-raw="translate_doc(doc_id,doc_model,'building','construction_rewrite.galadimawa_carcas_offer_letter_report_document')"/>
+			</t>
+		</t>
+		</template>-->
+
+  </data>
+</odoo>
+ 

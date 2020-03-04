@@ -1,0 +1,71 @@
+<odoo>
+    <data>
+
+        <!-- Parent category shown under Applications -->
+        <record model="ir.module.category" id="category_allocationx">
+           <field name="name">Allocation</field>
+           <field name="description">Allocation Module</field>
+           <field name="sequence">20</field>
+        </record>
+
+        <!--Group for CSU (customer service unit)-->
+        <record id="group_csux" model="res.groups">
+            <field name="name">CSU (Customer service unit)</field>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+        <!--Group for Allocation for accountants-->
+        <record id="group_allocation_for_accountantsx" model="res.groups">
+            <field name="name">Allocation for accountants</field>
+            <field name="implied_ids" eval="[(4, ref('group_csux'))]"/>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+        <!--Group for Allocation officers-->
+        <record id="group_allocation_officerx" model="res.groups">
+            <field name="name">Allocation Officer</field>
+            <field name="implied_ids" eval="[(4, ref('group_allocation_for_accountantsx'))]"/>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+        <!--Group for Allocation officers 2 (sakana)-->
+        <record id="group_allocation_officer2x" model="res.groups">
+            <field name="name">Allocation Officer 2</field>
+            <field name="implied_ids" eval="[(4, ref('group_allocation_officerx'))]"/>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+        <!--Group for Managing Directors-->
+        <record id="group_managing_directorx" model="res.groups">
+            <field name="name">Managing Director</field>
+            <field name="implied_ids" eval="[(4, ref('group_allocation_officer2x'))]"/>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+        <record id="group_sale_officer" model="res.groups">
+            <field name="name">Sales Officer Lagos</field>
+            <field name="implied_ids" eval="[(4, ref('group_managing_directorx'))]"/>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+        <record id="group_sales_manager" model="res.groups">
+            <field name="name">Sales Manager Lagos</field>
+            <field name="implied_ids" eval="[(4, ref('group_sale_officer'))]"/>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+         <record id="group_sale_officer_abu" model="res.groups">
+            <field name="name">Sales Officer Abuja</field>
+            <field name="implied_ids" eval="[(4, ref('group_sales_manager'))]"/>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+        <record id="group_sales_manager_abu" model="res.groups">
+            <field name="name">Sales Manager Abuja</field>
+            <field name="implied_ids" eval="[(4, ref('group_sale_officer_abu'))]"/>
+            <field name="category_id" ref="category_allocationx" />
+        </record>
+
+
+    </data>
+</odoo>

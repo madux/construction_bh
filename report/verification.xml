@@ -1,0 +1,170 @@
+﻿<odoo>
+  <data>
+
+    <template id="total_payment_todate">
+      <t t-call="report.offer_letter">
+        <t t-foreach="docs" t-as="o">
+          <div class="page" style="padding-top: 100px;">
+
+            <style>
+              table {
+                border-collapse: collapse;
+                margin-bottom: 40px;
+              }
+
+              th {
+                background-color: #333;
+                color: #fff;
+              }
+
+              table, th, tr, td {
+                border:1px solid #999;
+                font-family: Trebuchet MS
+              }
+
+              tr:nth-child(odd){
+                background-color: #ccc;
+              }
+
+              th, td{
+                padding: 5px;
+              }
+
+              td:nth-child(4) {
+                color: green;
+              }
+
+              .outstanding {
+                color: red;
+              }
+            </style>
+
+             <p style="text-align: right; font-weight: bold; font-size: 18px;"><t t-esc="receipt_number" /></p>
+
+             <span t-esc="o.partner_id.street" />
+             <p><t t-esc="datetime.datetime.now().strftime('%B %d, %Y')" /></p>
+              <p>Dear <t t-esc="o.partner_id.name" /></p>
+             <br /><br />
+             <h4 style="font-weight: bold; text-align: center;"><u>PAYMENT RECEIPT</u></h4>
+             <!--<p>We acknowledge your payment(s) into our account(s) with sale reference <strong><t t-esc="o.invoice_line_ids[0].product_id.name" /></strong> received at Brains and Hammers Estate.</p>-->
+             <p>We acknowledge your payment(s) into our account(s) with sale reference <strong><t t-esc="o.origin" /></strong> at Brains and Hammers Estate. <strong><t t-esc="o.invoice_line_ids[0].product_id.categ_id.project_site.name" /></strong>, Abuja.</p>
+
+              <table style="width: 100%; text-align: left;">
+                <tr>
+                  <th>ITEM</th>
+                  <th>LODGEMENT DATE</th>
+                  <th>BANK</th>
+                  <th>AMOUNT</th>
+                </tr>
+
+                  <tr>
+
+                  <td>Offer Amount</td>
+                  <td><t t-esc="o.date_invoice" /></td>
+                  <td></td>
+                   <td>₦ <t t-esc="'{0:,}'.format(float(o.invoice_line_ids[0].price_subtotal))" /></td>
+
+                  <!--<td><span t-field="o.invoice_line_ids[0].account_id.name" /></td>
+                  <td>₦<t t-esc="'{0:,}'.format(int(o.invoice_line_ids[0].price_unit))" /></td>-->
+                </tr>
+                <tr>
+
+                  <td>Initial installment</td>
+                  <!--<td><t t-esc="datetime.datetime.strptime(payments[0].date.split(' ')[0], '%Y-%m-%d').strftime('%B %d, %Y')" /></td>-->
+                  <td><t t-esc="o.date_invoice" /></td>
+                  <t t-if="o.payment_ids">
+                  <td> <span t-field="o.payment_ids[-1].journal_id.name" /></td>
+                   <td><span t-field="o.payment_ids[-1].amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td></t>
+
+                  <!--<td><span t-field="o.invoice_line_ids[0].account_id.name" /></td>
+                  <td>₦<t t-esc="'{0:,}'.format(int(o.invoice_line_ids[0].price_unit))" /></td>-->
+                </tr>
+
+
+                 <!--<t t-set="total_payment" t-value="o.payment_ids[1:].amount" />
+
+                 <t t-set="total_payments" t-value="total_payment + o.payment_ids[1:].amount" />   -->
+                  <t t-foreach="o.payment_ids[:-1]" t-as="payment">
+                  <tr>
+                    <td>Additional payment</td>
+                    <td><t t-esc="o.date_invoice" /></td>
+                    <td><span t-field="payment.journal_id.name" /></td>
+                   <td><span t-options='{"widget": "monetary", "display_currency": o.currency_id}' t-field="payment.amount" /></td>
+                  </tr>
+				</t>
+
+                 <t t-set="result" t-value="0" />
+                <t t-foreach="o.payment_ids" t-as="taxe">
+                <t t-set="result" t-value="result + taxe.amount" />
+                    </t>
+                <td>Total payment</td>
+                  <td></td>
+                  <td></td>
+                <td>₦ <t t-esc="'{0:,}'.format(int(result))" /> </td>
+
+
+
+
+
+              <!--<tr style="border: 2px solid #000;">
+
+                <t t-set="result" t-value="0" />
+                    <t foreach="o.payment_ids" t-as="pack" >
+                        <t t-set="result" t-value="result + pack.amount" />
+                    </t>
+                    <td>Total payment</td>
+                  <td></td>
+                  <td></td>
+                <td>₦<t t-esc="result" /> </td>
+
+                 </tr>-->
+
+                 <tr style="border: 2px solid #000;">
+                   <td>Outstanding balance</td>
+                   <td></td>
+                   <td></td>
+                   <td style="color: tomato;">₦<t t-esc="'{0:,}'.format(int(o.amount_total-result))" /></td>
+                 </tr>
+
+
+                <!--<tr style="border: 2px solid #000;">
+                  <td>Total payment</td>
+                  <td></td>
+                  <td></td>
+                  <td>₦<t t-esc="'{0:,}'.format(int(total_payments))" /></td>
+                </tr> -->
+                <!--<tr style="border: 2px solid #000;">
+                   <td>Outstanding balance</td>
+                   <td></td>
+                   <td></td>
+                   <td style="color: tomato;">₦<t t-esc="'{0:,}'.format(int(total_payment-o.amount_total))" /></td>
+                 </tr>-->
+              </table>      <br /><br />
+
+
+              <tr><td style="padding-top:4%;">
+                  <div class="row">
+                            <div class="col-xs-3">
+                               <img src="/web/image/29473" style="max-height: 100px;" />
+                               <br/><br/>
+			       
+			       <br/><br/>
+			       
+                            </div>
+                            <!--<div class="col-xs-offset-2 text-right">
+                            <br/><br/><br/><br/>
+                                <p>Customer's Signature</p>
+                            </div>-->
+
+                          </div>
+
+                    </td></tr>
+
+
+          </div>
+        </t>
+      </t>
+</template>
+
+  </data>
+</odoo>

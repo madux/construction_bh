@@ -1,0 +1,158 @@
+<odoo>
+	<data>
+		<template id="report_allocation_document">
+				<div class="page" t-as='o'>
+					<table style="width:100%;">
+						<tr>
+							<td style="width:100%; text-align:center;" colspan="2"><h1>
+								<strong t-if="o.state not in ['third','fourth']">Offer Letter </strong>
+								<strong t-if="o.state not in ['allocation']">Allocation Letter</strong>
+								</h1>
+							</td>
+						</tr>
+						<tr>
+
+							<td style="width:50%;">
+								<table style="width:100%;">
+									<tr>
+										<td style="width:50%;">
+											<strong>Project Site</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.name"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Type of Building</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.build_type"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Building</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.building"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Plot Number</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.plot_no"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Customer</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.partner_id"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Sales Order Number</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.so_no"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Project</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.project_id"/>
+										</td>
+									</tr>
+								</table>
+							</td>
+
+							<td style="width:50%;">
+								<table style="width:100%;">
+									<tr>
+										<td style="width:50%;">
+											<strong>Phase</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.phase"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Offer Date</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.offer_dt"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Offer Price</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.offer_price"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Analytic Account</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.analytic_account_id"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Payment Type</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.payment_type"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Balance B/F</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.balance"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Status</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.status"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width:50%;">
+											<strong>Amount Paid todate</strong>
+										</td>
+										<td style="width:50%;">
+											<span t-field="o.amount_dt"/>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+			<div>
+	 	</div>
+	 	</div>
+		</template>
+		<template id="offer_letter_view_report">
+		<t t-call="report.html_container">
+			<t t-foreach="doc_ids" t-as="doc_id">
+				<t t-raw="translate_doc(doc_id,doc_model,'building','construction_plot_4devnet.report_allocation_document')"/>
+			</t>
+		</t>
+		</template>
+	</data>
+</odoo>

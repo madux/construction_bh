@@ -1,0 +1,28 @@
+<odoo>
+  <data>
+
+    <template id="receipt_view_report">
+      <t t-call="report.offer_letter">
+        <t t-foreach="docs" t-as="o">
+          <div class="page" style="padding-top: 100px;">
+            <p style="text-align: right; font-weight: bold; font-size: 18px;"><t t-esc="receipt_number" /></p>
+            <p>Dear <span t-esc="o.plot_id.partner_id.name" /></p>
+            <br /><br />
+            <h4 style="font-weight: bold; text-align: center;"><u>ACKNOWLEDGEMENT OF RECIEPT OF N<t t-esc="'{0:,}'.format(int(o.amount))"/> BEING <span style="text-transform: uppercase"><t t-esc="payment_kind" /></span> FOR HOUSE <span t-field="o.plot_id"/> AT BRAINS AND HAMMERS ESTATE, <t t-esc="project_site"/>, ABUJA </u></h4>
+            <p>We write to acknowledge the receipt of <strong>N<t t-esc="'{0:,}'.format(int(o.amount))"/></strong> (<t t-esc="amount_in_words" /> Naira only) paid on <strong><t t-esc="verbal_date"/></strong> into our <span t-field="o.bank.bank_name" /> account, being <t t-esc="payment_kind" /> for House <strong><span t-field="o.plot_id" /></strong> at Brains and Hammers Estate, <t t-esc="project_site"/>, Abuja.</p>
+            <br /><br /><br />
+            <div style="width: 100%; height: 90px;">
+              <div style="width: 50%; float: right; height: 80px; margin-top: 4px;">
+                <p>__________________</p>
+                <p>Customer's signature</p>
+              </div>
+                <p>_________________</p>
+                <p>Manager's signature</p>
+              </div>
+          </div>
+        </t>
+      </t>
+</template>
+
+  </data>
+</odoo>

@@ -1,0 +1,212 @@
+<odoo>
+	<data>
+
+		<!-- Register sequence for offer letter --><!--
+    <record id="ref_code_offer_letter_reference_number" model="ir.sequence.type">
+      <field name="name">Offer letter reference number for brains and hammers</field>
+      <field name="code">offer_letter_reference_number</field>
+    </record>-->
+
+   <!-- <record id="seq_offer_letter_reference_number" model="ir.sequence">
+      <field name="name">Offer letter reference number for brains and hammers</field>
+      <field name="code">offer_letter_reference_number</field>
+      <field name="prefix">BH/</field>
+      <field name="padding">8</field>
+      <field name="company_id" eval="False"/>
+     </record>  -->
+
+
+                                                            <!-- <template id="final_provisional_letter_view_report_indicative">-->
+     <template id="final_provisional_letter_view_report_indicative">
+        <t t-call="report.html_container">
+        	<div class="header">
+				<div class="row">
+					<div class="col-xs-3">
+						<!--<img src='/construction_rewrite/static/img/bandofferlogo.png' style="max-width: 150px;"/> -->
+                     <img src="https://imgur.com/PEEOW1h.jpg" style="max-height: 120px;" />
+					</div>
+					<!--<div class="col-xs-offset-2 text-right">
+						<img src='/construction_rewrite/static/img/logobh.png' style="max-height: 45px;"/>
+					</div>-->
+
+
+
+				</div>
+				<hr/>
+			</div>
+
+
+            <div class="page" style="max-width: 660px; margin: auto;">
+
+				<style>
+
+					body {
+					  line-height: 210%;
+						font-size: 18px;
+						font-family: 'EB Garamond';
+					}
+
+					page {
+						margin-bottom: -30px;
+					}
+
+          .abc {
+  				margin-left: 40px;
+    			list-style-type: lower-alpha;
+				 }
+
+					li {
+					  text-align: justify;
+						line-height: 2em;
+						padding-top: 2%;
+						padding-bottom: 20px;
+					}
+
+					p {
+					  text-align: justify;
+					}
+				</style>
+ <t t-foreach="docs" t-as="o">
+				<p style="float: right;"><span t-esc="name" /></p>
+   	<br />
+
+				<table style="width: 100%;">
+					<tr>
+
+						<tr><td style="font-weight: bold; padding-top:2%;">
+
+
+
+							<!--<table style="margin-top: -15px;">
+								<tr><td><span t-field="o.partner_id"
+	                            t-field-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": true}'/>
+								</td></tr>
+							</table>-->
+
+
+                   </td>
+					</tr>
+<tr><td style="padding-top:4%;">
+						<div class="row" style="font-family:Garamond;font-size:16px;">							
+						<div><p>Sales Reference: <strong><t t-esc="o.origin" /></strong></p></div>
+								<p><t t-esc="datetime.datetime.now().strftime('%B %d, %Y')" /></p>
+				                <span t-field="o.partner_id"/>,<br/>
+				                <span t-field="o.partner_id.street"/>,<span t-field="o.partner_id.street2"/>,<br/>
+				                <span t-field="o.partner_id.city"/>,<span t-field="o.partner_id.state_id.name"/><br/>
+				                 <p><span t-field="o.partner_id.country_id.name"/>.</p>
+
+				                 <p>Dear Sir/Ma,</p>
+						 
+				        </div>
+
+
+
+                       <center><b><u>INDICATIVE OFFER LETTER FOR  A <t t-foreach="o.order_line[0]" t-as="po"><span t-esc="po.product_id.name.capitalize()" /> AT BRAINS &amp; HAMMERS ESTATE,<span t-esc="po.product_id.categ_id.project_site.name" /></t> ABUJA</u></b></center>
+                                <br/>
+
+                       Thank you for your interest in our range of products at Brains &amp; Hammers Limited. <br/>
+                       We are pleased to inform you that we are making an indicative offer to you for a  <t t-foreach="o.order_line[0]" t-as="po"><span t-esc="po.product_id.name" /></t>  at Brains &amp; Hammers Estate <t t-foreach="o.order_line[0]" t-as="po"><span t-esc="po.product_id.categ_id.project_site.name" /></t>, Abuja, at the  price of &#8358; <t t-foreach="o.order_line[0]" t-as="po"><span t-esc="'{0:,}'.format(int(po.price_unit))"/></t> Naira only, exclusive of taxes and VAT.
+                       <br /><br />
+                              <!--</t>     <span t-esc="po.product_id.categ_id.project_site.name" />    -->
+
+                   <!--	<ol style="padding-left: 70px;">-->
+
+
+                        <t t-if="o.payment_type == 'outright'">
+                              <p>
+                                The offer price quoted in this letter is valid for seven days only, after which the price of the property may change; if this offer is accepted you must make a deposit within these seven days of
+                                 one hundred percent(100)% of the purchase price in the sum of &#8358;<strong><span t-esc="'{0:,}'.format(int(o.amount_total))"/></strong> into the accounts
+                                of Brains and Hammers Limited, <b>Account Name: <span t-esc="o.bank_account.name"/></b>, <b>Account number:</b> <span t-esc="o.bank_account.bank_acc_number"/> , <b>Bank Name:</b> <span t-esc="o.bank_account.bank_id.name"/>.<br /><br /> Please note that Brains &amp; Hammers reserves the right to refund any deposit made by any prospective purchaser where such payments are not made within the agreed time or any particular housing unit the prospective purchaser has made a deposit in respect of is no longer available.
+                                <br />
+                             </p>
+                               <br /><br />
+							</t>
+
+                            <t t-if="o.payment_type == 'installment'">
+                              <p>
+                                The offer price quoted in this letter is valid for seven days only, after which the price of the property may change; if this offer is accepted you must make a deposit within these seven days of
+                                 <span t-esc="'{0:,}'.format(int(o.payment_term_id.line_ids[0].value_amount))"/>% of the purchase price in the sum of &#8358;<strong><span t-esc="'{0:,}'.format(int(o.payment_term_id.line_ids[0].value_amount*o.amount_total /100))"/></strong> into the accounts
+                                of Brains and Hammers Limited, <b>Account Name: <span t-esc="o.bank_account.name"/></b>, <b>Account number:</b> <span t-esc="o.bank_account.bank_acc_number"/> , <b>Bank Name:</b> <span t-esc="o.bank_account.bank_id.name"/>.<br /><br /> Please note that Brains &amp; Hammers reserves the right to refund any deposit made by any prospective purchaser where such payments are not made within the agreed time or any particular housing unit the prospective purchaser has made a deposit in respect of is no longer available.
+                                <br />
+                             </p>
+                               <br /><br />
+							</t>
+
+                             <!--<t t-if="o.payment_type == 'installment'">
+
+                             	<li>
+                                The offer price quoted in this letter is valid for seven days only, after which the price of the property may change; if this offer is accepted you must make a deposit within these seven days of
+                                Twenty or Thirty percent (20% or 30%) of the purchase price in the sum of ?<strong><span t-esc="(o.payment_term_id.line_ids[0].value_amount*o.amount_total /100)"/></strong> into the accounts
+                                 of Brains and Hammers Limited, account number: <span t-esc="o.bank_account.bank_acc_number"/> , account Name: <span t-esc="o.bank_account.bank_id.name"/>. Please note that Brains &amp; Hammers reserves the right to refund any deposit made by any prospective purchaser where such payments are
+                                 not made within the agreed time or any particular housing unit the prospective purchaser has made a deposit in respect of is no longer avail
+                               </li>
+
+							</t>-->
+
+                       		<p>
+                               Refund of any payment made in furtherance to this offer letter and failure by the prospective purchaser to make any of the stage payments as at when due under this agreement; Brains and Hammers shall refund to the prospective purchaser the deposit made for the housing unit less ten percent (10%) of the purchase price deducted as administrative fees upon the purchase and full payment for the said housing unit by a subsequent allotee.
+                           </p>   <br /><br />
+                           <p>
+                           	Please note that this letter does not constitute a contract as between us; once you have made the deposit and have informed our representative you will be required to collect your provisional letter of allocation from our office consisting of the terms and conditions of allocation of the housing unit to you. You will be issued a final letter of allocation upon the completion of the payment process.
+                           </p>
+                           
+
+						<p>
+      	                 If you have any further enquiries kindly visit our office at African University of Science &amp; Technology Complex, KM 10 Brains and Hammers Estate, Galadimawa, Abuja.
+						</p>
+                        <p>If the above terms and conditions are acceptable to you, please indicate by signing in the space provided in our acceptance form.</p>
+                                
+			
+			<p align="justify">
+                  	Thank you,
+			</p>
+                	<p align="justify">
+                	  Yours Faithfully
+			</p>
+
+</td></tr>
+
+
+<!--<tr><td style="padding-top:4%;">
+                     Thank you,
+                      </td></tr>
+
+                      <tr><td style="padding-top:4%;">
+                          Yours Faithfully,
+                         <br /><br />
+                      </td></tr>-->
+
+
+
+						<tr><td style="padding-top:4%;">
+							<u>AUTHORIZED SIGNATORY</u>
+						</td></tr>
+						<tr><td style="padding-top:4%;">
+							<!--<img src='/construction_rewrite/static/img/eds.png' style="max-height: 150px;"/>-->
+							<img src="https://imgur.com/FYvOMgW.jpg" style="max-height: 200px;" />
+
+						</td></tr>
+						<tr><td style="padding-top:2%;">
+                            For: Brains &amp; Hammers Limited
+						</td></tr>
+					</tr>
+				</table>
+			<div>
+	 	</div>
+
+	 	 </t>
+	 	</div>
+
+
+
+        </t>
+		</template>
+		<!--<template id="final_provisional_letter_view_report">
+		<t t-call="report.offer_letter">
+			<t t-foreach="doc_ids" t-as="doc_id">
+				<t t-raw="translate_doc(doc_id,doc_model,'building','construction_rewrite.final_provisional_letter_report_document')"/>
+			</t>
+		</t>
+		</template>-->
+	</data>
+</odoo>

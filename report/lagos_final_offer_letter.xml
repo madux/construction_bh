@@ -1,0 +1,153 @@
+<odoo>
+	<data>
+
+		<!-- Register sequence for offer letter --><!--
+    <record id="ref_code_offer_letter_reference_number" model="ir.sequence.type">
+      <field name="name">Offer letter reference number for brains and hammers</field>
+      <field name="code">offer_letter_reference_number</field>
+    </record>-->
+
+   <!-- <record id="seq_offer_letter_reference_number" model="ir.sequence">
+      <field name="name">Offer letter reference number for brains and hammers</field>
+      <field name="code">offer_letter_reference_number</field>
+      <field name="prefix">BH/</field>
+      <field name="padding">8</field>
+      <field name="company_id" eval="False"/>
+     </record>  -->
+
+                                                            <!-- <template id="final_provisional_letter_view_report_indicative">-->
+     <template id="lagos_final_offer_letter">
+        <t t-call="report.html_container">
+        	<div class="header">
+				<div class="row">
+					<div class="col-xs-3">
+						<img src='/construction_rewrite/static/img/invhome.png' style="max-width: 120px;"/>
+					</div>
+					<div class="col-xs-offset-2 text-right">
+						<img src='/construction_rewrite/static/img/logobh.png' style="max-height: 45px;"/>
+					</div>
+					<div class="col-xs-offset-2 text-center">
+            		<hr/>
+      				</div>
+				</div>
+			</div>
+            <t t-foreach="docs" t-as="o">
+                <!--<t t-call="report.external_layout">-->
+
+            <div class="page" style="max-width: 660px; margin: auto;">
+
+
+				<style>
+
+					body {
+					  line-height: 210%;
+						font-size: 18px;
+						font-family: 'EB Garamond';
+					}
+
+					page {
+						margin-bottom: -30px;
+					}
+
+          .abc {
+  				margin-left: 40px;
+    			list-style-type: lower-alpha;
+				 }
+
+					li {
+					  text-align: justify;
+						line-height: 2em;
+						padding-top: 2%;
+						padding-bottom: 20px;
+					}
+
+					p {
+					  text-align: justify;
+					}
+				</style>
+
+
+				<table style="width: 100%;">
+					<tr>
+						<div class="col-md-8">
+							<div class="col-xs-offset-2 text-right">
+
+		            		<b>Ref:</b> <span t-esc="o.so_no"/><br/>
+                            <b>Date:</b> <span t-esc="o.offer_dt"/>
+
+		      				</div>
+
+		                <br/>
+		                <div class="row" style="font-family:Garamond;font-size:16px;">
+    		                <span t-field="o.partner_id"/>,<br/>
+    		                <span t-field="o.partner_id.street"/>,<span t-field="o.partner_id.street2"/>,<br/>
+    		                <span t-field="o.partner_id.city"/>,<span t-field="o.partner_id.state_id.name"/>,<br/>
+    		                <span t-field="o.partner_id.country_id.name"/>
+
+		                	<p>Dear Sir/Ma,</p>
+		            </div></div>
+
+                       <center><b><u>AN OFFER OF SALE FOR A <span t-esc="o.build_type" /><span t-esc="o.building" /> AT BRAINS &amp; HAMMERS ESTATE, <span t-esc="o.name.name" />, LAGOS</u></b></center>
+                                <br/>
+
+                        We are pleased to inform you that we have received a total payment of N<span t-esc="'{0:,}'.format(int(o.amount_dt))"/> for a <span t-esc="o.build_type" /> at the Brains &amp; Hammers  <span t-esc="o.name.name" />, Lagos excluding VAT, Legal and other charges (which are equally due and ought to be paid).
+                     <p>
+                        <b>Legal Fees:</b> 2% (Cheque or draft in the name of <b>Abubakar Sheidu &amp; co.</b><!--<span t-esc="o.law.lawyer.name" />-->)
+                    </p>
+						<!--<p><b>VAT:</b><t t-foreach="o.payment_invoice.invoice_line_ids" t-as="taxe"><t t-if="taxe.invoice_line_tax_ids"> <strong><span t-esc="taxe.invoice_line_tax_ids[0].amount"/>%</strong>(N<span t-esc="'{0:,}'.format(int(taxe.invoice_line_tax_ids[0].amount*o.amount_dt /100))"/></t></t>  Payable by bank draft raised in the name of the FIRS)</p>  -->
+                       <p><b>VAT:</b> <t t-set="taxs" t-value="5"/><span t-esc="taxs"/>% of the purchase price &#8358;<span t-esc="'{0:,}'.format(int(taxs*o.payment_invoice.amount_total /100))"/></p>
+
+
+                        <p><b>Assigned Unit: <span t-esc="o.plot_no.plot_no" /></b></p>
+
+                   <!--	<ol style="padding-left: 70px;">-->
+
+                        <ol>
+                        	<li>
+                                The allotee shall be given possession of the property upon full payment of the consideration including legal fees, service charges, infrastructure leasing charges, generator meter, EEDC meter, water meter, and automatic change over switch, waste bin, as well as other impositions contained in your Provisional Offer Letter.
+                            </li>
+                            <li>
+                                Upon the completion of the housing unit the allotee shall be written by the vendor informing the allotee of the completion of the housing unit and a date agreed to by both the vendor and the allotee for the inspection of the housing unit by the allottee and the Estate Facility Management personnel. On the agreed date, the allotee shall carry out the said inspection and upon the completion of the inspection the vendor’s representative shall check-in the allotee and hand over possession of the housing unit to the allottee.
+                            </li>
+
+                             <li>
+                                A Deed of Sublease shall be prepared and issued to each allottee upon completion of all payments stated herein.
+                            </li>
+                             <li>
+                                The property shall be used for residential purposes only.
+                            </li>
+                         </ol>
+                           <!-- </ol>-->
+
+						<tr><td style="padding-top:4%;">
+                        Your's Faithfully.
+						</td></tr>
+						<!--<tr><td style="padding-top:4%;">
+							<img src="http://i.imgur.com/L9i1Sp7.jpg" style="max-height: 200px;" />
+						</td></tr>  -->
+
+						<tr><td style="padding-top:4%;">
+							<u>Ibrahim Wushishi</u>
+						</td></tr>
+						<tr><td style="padding-top:2%;">
+							Signature………………………………………………………………………
+						</td></tr>
+					</tr>
+				</table>
+			<div>
+	 	</div>
+	 	</div>
+
+
+        </t>
+        </t>
+		</template>
+		<!--<template id="final_provisional_letter_view_report">
+		<t t-call="report.offer_letter">
+			<t t-foreach="doc_ids" t-as="doc_id">
+				<t t-raw="translate_doc(doc_id,doc_model,'building','construction_rewrite.final_provisional_letter_report_document')"/>
+			</t>
+		</t>
+		</template>-->
+	</data>
+</odoo>

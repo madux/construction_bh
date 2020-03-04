@@ -1,0 +1,172 @@
+<odoo>
+	<data>
+		<report
+			id="report_offer_letter"
+			string="Offer Letter"
+			model="plot.allocatex"
+			report_type="qweb-pdf"
+			file="construction_rewrite.offer_letter_view_report"
+			name="construction_rewrite.offer_letter_view_report"
+			menu="False"
+		/>
+		<report
+			id="resale_offer_letter"
+			string="Resale Offer Letter"
+			model="re.salexxmain"
+			report_type="qweb-pdf"
+			file="construction_rewrite.resale_letter_view_report"
+			name="construction_rewrite.resale_letter_view_report"
+			menu="False"
+		/>
+
+		<report
+			id="final_provisional_letter"
+			string="Provisional Letter"
+			model="plot.allocatex"
+			report_type="qweb-pdf"
+			file="construction_rewrite.new_offer_letter_report_document"
+			name="construction_rewrite.new_offer_letter_report_document"
+			menu="False"
+		/>
+
+        <report
+			id="final_provisional_letter_indicative"
+			string="Provisional Letter"
+			model="sale.order"
+			report_type="qweb-pdf"
+			file="construction_rewrite.final_provisional_letter_view_report_indicative"
+			name="construction_rewrite.final_provisional_letter_view_report_indicative"
+			menu="False"
+		/>
+		<report
+			id="new_offer_letter_report_document_report"
+			string="Bungalow offer letter"
+			model="sale.order"
+			report_type="qweb-pdf"
+			file="construction_rewrite.new_offer_letter_report_document"
+			name="construction_rewrite.new_offer_letter_report_document"
+			menu="False"
+		/>
+
+		<report
+			id="iganmu_provisional_letter_indicative"
+			string="Offer Letter"
+			model="sale.order"
+			report_type="qweb-pdf"
+			file="construction_rewrite.iganmu_letter_view_report"
+			name="construction_rewrite.iganmu_letter_view_report"
+			menu="False"
+		/>
+
+
+		<report
+			id="receipt_totalx"
+			string="Print Total Receipt"
+			model="account.invoice"
+			report_type="qweb-pdf"
+			file="construction_rewrite.account_receipt_invoice"
+			name="construction_rewrite.account_receipt_invoice"
+			menu="False"
+		/>
+
+		<report
+			id="offer_letter_lekki_id"
+			string="Lekki Offer Letter"
+			model="sale.order"
+			report_type="qweb-pdf"
+			file="construction_rewrite.lekki_offer_letter_view_report"
+			name="construction_rewrite.lekki_offer_letter_view_report"
+			menu="False"
+		/>
+
+		<report
+			id="lagos_final_offer_letter_main"
+			string="Final Offer Letter"
+			model="plot.allocatex"
+			report_type="qweb-pdf"
+			file="construction_rewrite.lagos_final_offer_letter"
+			name="construction_rewrite.lagos_final_offer_letter"
+			menu="True"
+		/>
+
+
+		<report
+			id="bh_city_offer_letter"
+			string="Offer letter for Brains and hammers city"
+			model="plot.allocatex"
+			report_type="qweb-pdf"
+			file="construction_rewrite.bh_city_offer_letter_report_document"
+			name="construction_rewrite.bh_city_offer_letter_report_document"
+			menu="False"
+		/>
+		<report
+			id="galadimawa_carcas_offer_letter"
+			string="Offer letter for Galadimawa carcas"
+			model="plot.allocatex"
+			report_type="qweb-pdf"
+			file="construction_rewrite.galadimawa_carcas_offer_letter_report_document"
+			name="construction_rewrite.galadimawa_carcas_offer_letter_report_document"
+			menu="False"
+		/>
+
+		<report
+			id="fish_offer_letter"
+			string="Offer letter for FISH report"
+			model="plot.allocatex"
+			report_type="qweb-pdf"
+			file="construction_rewrite.fish_letter_report_document"
+			name="construction_rewrite.fish_letter_report_document"
+			menu="False"
+		/>
+
+		<report
+			id="receipt"
+			string="Receipt"
+			model="register.payment.wizard.for.plotx"
+			report_type="qweb-pdf"
+			file="construction_rewrite.receipt_view_report"
+			name="construction_rewrite.receipt_view_report"
+			menu="False"
+		/>
+
+		<report
+			id="site"
+			string="Site Report"
+			model="projectsite.masterx"
+			report_type="qweb-pdf"
+			file="construction_rewrite.site_report"
+			name="construction_rewrite.site_report"
+			menu="False"
+		/>
+
+		<!--<report
+			id="total_payment"
+			string="Total payment to date"
+			model="register.payment.view.for.plotx"
+			report_type="qweb-pdf"
+			file="construction_rewrite.total_payment_todate"
+			name="construction_rewrite.total_payment_todate"
+			menu="True"
+		/>-->
+
+
+		<report
+			id="total_payment"
+			string="Total payment to date"
+			model="account.invoice"
+			report_type="qweb-pdf"
+			file="construction_rewrite.total_payment_todate"
+			name="construction_rewrite.total_payment_todate"
+			menu="True"
+		/>
+		<report
+			id="total_payment_lagos"
+			string="Total payment"
+			model="account.invoice"
+			report_type="qweb-pdf"
+			file="construction_rewrite.total_lagos_payment_todate"
+			name="construction_rewrite.total_lagos_payment_todate"
+			menu="False"
+		/>
+	</data>
+</odoo>
